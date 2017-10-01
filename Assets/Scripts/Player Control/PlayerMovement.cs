@@ -2,77 +2,96 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent (typeof(Rigidbody2D))]
-[RequireComponent (typeof(Animator))]
-[RequireComponent (typeof(SpriteRenderer))]
-[RequireComponent (typeof(BoxCollider2D))]
+namespace Remel.Player {
 
-public class PlayerMovement : MonoBehaviour {
+	[RequireComponent (typeof(Rigidbody2D))]
+	[RequireComponent (typeof(Animator))]
+	[RequireComponent (typeof(SpriteRenderer))]
 
-	[SerializeField]
-	protected float moveSpeed = 2.0f;
-	[SerializeField]
-	protected float jumpHeight = 4.0f;
-	[SerializeField]
-	protected int numJumps = 5;
+	public class PlayerMovement : MonoBehaviour {
 
-	public Animator anim;
+		[SerializeField]
+		protected float moveSpeed = 2.0f;
+		[SerializeField]
+		protected float jumpHeight = 4.0f;
+		[SerializeField]
+		protected int numJumps = 5;
+		[SerializeField]
+		private bool useMovement = true;
 
-	private BoxCollider2D coll;
-	private PlayerGroundCheck playerGroundCheck;
-	private Rigidbody2D rb;
-	private SpriteRenderer sr;
+		public Animator anim;
 
-	private float h_Input;
-	private int remainingJumps;
+		private PlayerGroundCheck playerGroundCheck;
+		private Rigidbody2D rb;
+		private SpriteRenderer sr;
 
-	// Use this for initialization
-	void Start () {
-		anim = GetComponent<Animator> ();
-		coll = GetComponent<BoxCollider2D> ();
-		playerGroundCheck = GetComponent<PlayerGroundCheck> ();
-		rb = GetComponent<Rigidbody2D> ();
-		sr = GetComponent<SpriteRenderer> ();
+		private float h_Input;
+		private int remainingJumps;
 
-		remainingJumps = numJumps;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		HorizontalMovement ();
-		Jump ();
-	}
+		// Use this for initialization
+		void Start () {
+			anim = GetComponent<Animator> ();
+			playerGroundCheck = GetComponent<PlayerGroundCheck> ();
+			rb = GetComponent<Rigidbody2D> ();
+			sr = GetComponent<SpriteRenderer> ();
 
-	private void HorizontalMovement() {
-		h_Input = Input.GetAxis ("Horizontal");
+			remainingJumps = numJumps;
+		}
+		
+		// Update is called once per frame
+		void Update () {
+			if (!useMovement) {
+				return;
+			}
 
-		rb.transform.position += Vector3.right * h_Input * Time.deltaTime * moveSpeed;
+			HorizontalMovement ();
+			Jump ();
+		}
 
-		anim.SetBool ("walk", Mathf.Abs(h_Input) > 0f);
+		private void HorizontalMovement() {
+			h_Input = Input.GetAxis ("Horizontal");
 
-		sr.flipX = h_Input != 0f ? (h_Input > 0f ? false : true) : sr.flipX;
-	}
+			rb.position += Vector2.right * h_Input * Time.deltaTime * moveSpeed;
+			//Vector2 vel = rb.velocity;
+			//vel.x = h_Input * moveSpeed;
 
-	private void Jump() {
-		if (Input.GetKeyDown (KeyCode.UpArrow) && remainingJumps > 0) {
-			Vector2 vel = rb.velocity;
-			vel.y = jumpHeight * remainingJumps-- / numJumps;
+			//rb.velocity = vel;
 
-			rb.velocity = vel;
+			anim.SetBool ("walk", Mathf.Abs(h_Input) > 0f);
 
-			anim.SetBool ("grounded", false);
+			sr.flipX = h_Input != 0f ? (h_Input > 0f ? false : true) : sr.flipX;
+		}
 
-			if (playerGroundCheck.isGrounded) {
-				anim.SetTrigger ("jump");
-				anim.ResetTrigger ("air_jump");
-			} else {
-				anim.SetTrigger ("air_jump");
-				anim.ResetTrigger ("jump");
+		private void Jump() {
+			if (GetComponent<JumpReplacement> ()) {
+				return;
+			}
+
+			if (Input.GetKeyDown (KeyCode.UpArrow) && remainingJumps > 0) {
+				Vector2 vel = rb.velocity;
+				vel.y = jumpHeight * remainingJumps-- / numJumps;
+
+				rb.velocity = vel;
+
+				anim.SetBool ("grounded", false);
+
+				if (playerGroundCheck.isGrounded) {
+					anim.SetTrigger ("jump");
+					anim.ResetTrigger ("air_jump");
+				} else {
+					anim.SetTrigger ("air_jump");
+					anim.ResetTrigger ("jump");
+				}
 			}
 		}
-	}
 
-	public void ResetJumps() {
-		remainingJumps = numJumps;
+		public void ResetJumps() {
+			remainingJumps = numJumps;
+		}
+
+		public void ResetPosition() {
+			rb.transform.position = new Vector3 (0f, -0.25f, 0f);
+			rb.velocity = Vector2.zero;
+		}
 	}
 }

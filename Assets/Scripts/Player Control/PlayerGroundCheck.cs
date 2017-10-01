@@ -2,43 +2,47 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(PlayerMovement))]
+namespace Remel.Player {
 
-public class PlayerGroundCheck : MonoBehaviour {
+	[RequireComponent(typeof(Rigidbody2D))]
+	[RequireComponent(typeof(PlayerMovement))]
 
-	public Vector3 verticalVelocitySeries;
+	public class PlayerGroundCheck : MonoBehaviour {
 
-	private Rigidbody2D rb;
-	private PlayerMovement playerMovement;
+		public Vector3 verticalVelocitySeries;
 
-	public bool isGrounded;
+		private Rigidbody2D rb;
+		private PlayerMovement playerMovement;
 
-	// Use this for initialization
-	void Start () {
-		playerMovement = GetComponent<PlayerMovement> ();
-		rb = GetComponent<Rigidbody2D> ();
+		public bool isGrounded;
 
-		verticalVelocitySeries = Vector3.zero;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		GroundCheck ();
+		// Use this for initialization
+		void Start () {
+			playerMovement = GetComponent<PlayerMovement> ();
+			rb = GetComponent<Rigidbody2D> ();
 
-		if (isGrounded) {
-			playerMovement.ResetJumps ();
+			verticalVelocitySeries = Vector3.zero;
+		}
+		
+		// Update is called once per frame
+		void Update () {
+			GroundCheck ();
+
+			if (isGrounded) {
+				playerMovement.ResetJumps ();
+			}
+
+			playerMovement.anim.SetBool ("grounded", isGrounded);
 		}
 
-		playerMovement.anim.SetBool ("grounded", isGrounded);
+		private void GroundCheck() {
+			verticalVelocitySeries.x = verticalVelocitySeries.y;
+			verticalVelocitySeries.y = verticalVelocitySeries.z;
+
+			verticalVelocitySeries.z = rb.velocity.y;
+
+			isGrounded = verticalVelocitySeries.magnitude == 0f;
+		}
 	}
 
-	private void GroundCheck() {
-		verticalVelocitySeries.x = verticalVelocitySeries.y;
-		verticalVelocitySeries.y = verticalVelocitySeries.z;
-
-		verticalVelocitySeries.z = rb.velocity.y;
-
-		isGrounded = verticalVelocitySeries.magnitude == 0f;
-	}
 }
