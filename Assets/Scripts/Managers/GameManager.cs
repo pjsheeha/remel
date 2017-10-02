@@ -11,6 +11,10 @@ namespace Remel.Managers {
 
 		[SerializeField]
 		public GameObject projectilePrefab;
+		[SerializeField]
+		public GameObject negativeEnergyPrefab;
+		[SerializeField]
+		public GameObject positiveEnergyPrefab;
 
 		PlayerMovement playerMovement;
 

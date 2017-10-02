@@ -4,9 +4,7 @@ using UnityEngine;
 
 namespace Remel.Player {
 
-	[RequireComponent (typeof(Rigidbody2D))]
-	[RequireComponent (typeof(Animator))]
-	[RequireComponent (typeof(SpriteRenderer))]
+	[RequireComponent (typeof(PlayerManager))]
 
 	public class PlayerMovement : MonoBehaviour {
 
@@ -16,71 +14,52 @@ namespace Remel.Player {
 		protected float jumpHeight = 4.0f;
 		[SerializeField]
 		protected int numJumps = 5;
-		[SerializeField]
-		private bool useMovement = true;
 
-		public Animator anim;
-
-		private PlayerGroundCheck playerGroundCheck;
-		private Rigidbody2D rb;
-		private SpriteRenderer sr;
+		private PlayerManager playerManager;
 
 		private float h_Input;
 		private int remainingJumps;
 
 		// Use this for initialization
 		void Start () {
-			anim = GetComponent<Animator> ();
-			playerGroundCheck = GetComponent<PlayerGroundCheck> ();
-			rb = GetComponent<Rigidbody2D> ();
-			sr = GetComponent<SpriteRenderer> ();
+			playerManager = GetComponent<PlayerManager> ();
 
 			remainingJumps = numJumps;
 		}
 		
 		// Update is called once per frame
 		void Update () {
-			if (!useMovement) {
-				return;
-			}
-
 			HorizontalMovement ();
 			Jump ();
 		}
 
 		private void HorizontalMovement() {
-			h_Input = Input.GetAxis ("Horizontal");
+			h_Input = playerManager.useMovement ? Input.GetAxis ("Horizontal") :  0f;
 
-			rb.position += Vector2.right * h_Input * Time.deltaTime * moveSpeed;
-			//Vector2 vel = rb.velocity;
-			//vel.x = h_Input * moveSpeed;
+			playerManager.rb.position += Vector2.right * h_Input * Time.deltaTime * moveSpeed;
 
-			//rb.velocity = vel;
+			playerManager.SetAnimation ("walk", Mathf.Abs(h_Input) > 0f);
 
-			anim.SetBool ("walk", Mathf.Abs(h_Input) > 0f);
-
-			sr.flipX = h_Input != 0f ? (h_Input > 0f ? false : true) : sr.flipX;
+			playerManager.spriteRenderer.flipX = h_Input != 0f ? (h_Input > 0f ? false : true) : playerManager.spriteRenderer.flipX;
 		}
 
 		private void Jump() {
-			if (GetComponent<JumpReplacement> ()) {
+			if (GetComponent<JumpReplacement> () || !playerManager.useMovement) {
 				return;
 			}
 
 			if (Input.GetKeyDown (KeyCode.UpArrow) && remainingJumps > 0) {
-				Vector2 vel = rb.velocity;
+				Vector2 vel = playerManager.rb.velocity;
 				vel.y = jumpHeight * remainingJumps-- / numJumps;
 
-				rb.velocity = vel;
+				playerManager.rb.velocity = vel;
 
-				anim.SetBool ("grounded", false);
+				playerManager.SetAnimation ("grounded", false);
 
-				if (playerGroundCheck.isGrounded) {
-					anim.SetTrigger ("jump");
-					anim.ResetTrigger ("air_jump");
+				if (playerManager.isGrounded) {
+					playerManager.TriggerAnimation ("jump");
 				} else {
-					anim.SetTrigger ("air_jump");
-					anim.ResetTrigger ("jump");
+					playerManager.TriggerAnimation ("air_jump");
 				}
 			}
 		}
@@ -90,8 +69,8 @@ namespace Remel.Player {
 		}
 
 		public void ResetPosition() {
-			rb.transform.position = new Vector3 (0f, -0.25f, 0f);
-			rb.velocity = Vector2.zero;
+			playerManager.rb.position = new Vector3 (0f, -0.25f, 0f);
+			playerManager.rb.velocity = Vector2.zero;
 		}
 	}
 }

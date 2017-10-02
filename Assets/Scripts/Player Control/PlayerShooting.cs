@@ -35,7 +35,7 @@ public class PlayerShooting : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.LeftArrow) || Input.GetKeyDown (KeyCode.RightArrow)) {
 			animationLocked = true;
 
-			GetComponent<PlayerMovement> ().anim.SetTrigger ("fire");
+			GetComponent<PlayerManager> ().TriggerAnimation ("fire");
 		}
 	}
 
