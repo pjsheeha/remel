@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Remel.Player;
+using Remel.Objects;
 
-namespace Player {
+namespace Remel.Player {
 
 	[RequireComponent (typeof(PlayerManager))]
 
+	/**
+	 * PlayerAbsorb class checks for player input (Space bar) to initiate absorption
+	 * of negative energy particles.
+	 */
 	public class PlayerAbsorb : MonoBehaviour {
 
 		[SerializeField]
@@ -27,15 +32,19 @@ namespace Player {
 			CheckInitiate ();
 		}
 
+		// absorption should be framerate invariant
 		void FixedUpdate() {
 			Absorb ();
 		}
 
+		// checks for key press and toggles 'absorption' boolean
+		// also toggles pause/resume movement in PlayerManager component
 		private void CheckInitiate() {
 			if (!playerManager.isGrounded) {
 				return;
 			}
 
+			// absorption is true if key pressed and neg-energy isn't saturated (PlayerEnergyCollector)
 			absorption = Input.GetKey (KeyCode.Space) && !playerManager.isSaturated;
 
 			playerManager.SetAnimation ("sucking", absorption);
@@ -47,6 +56,9 @@ namespace Player {
 			}
 		}
 
+		// called in FixedUpdate for Physics update
+		// applies force on neg-energy particles inversely proportional to the distance
+		// squared between player and each particle
 		private void Absorb() {
 			if (!absorption) {
 				return;

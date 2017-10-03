@@ -7,6 +7,10 @@ using Remel.Player;
 
 namespace Remel.Managers {
 
+	/**
+	 * Persistent Singleton game manager object. Will keep track of game data
+	 * and can be called using GameManager.Instance
+	 */
 	public class GameManager : PersistentSingleton<GameManager> {
 
 		[SerializeField]

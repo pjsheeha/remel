@@ -6,6 +6,10 @@ namespace Remel.Player {
 
 	[RequireComponent (typeof(PlayerManager))]
 
+	/**
+	 * Processes player horizontal movement and jumping. Movement script is
+	 * independent of sprite animations as long as the sprite's animator contains params
+	 */
 	public class PlayerMovement : MonoBehaviour {
 
 		[SerializeField]
@@ -36,6 +40,7 @@ namespace Remel.Player {
 		private void HorizontalMovement() {
 			h_Input = playerManager.useMovement ? Input.GetAxis ("Horizontal") :  0f;
 
+			// use rigidbody position instead of transform to eliminate jitter when colliding with walls
 			playerManager.rb.position += Vector2.right * h_Input * Time.deltaTime * moveSpeed;
 
 			playerManager.SetAnimation ("walk", Mathf.Abs(h_Input) > 0f);

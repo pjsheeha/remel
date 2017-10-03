@@ -2,16 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PositiveEnergyParticle : EnergyParticle {
+using Remel.Objects;
 
-	protected override void Start () {
-		base.Start ();
-	}
+namespace Remel.Objects {
 
-	protected void Update() {
-		if (GetComponent<Rigidbody2D> ().velocity.magnitude < 1e-1) {
-			Destroy (gameObject);
+	public class PositiveEnergyParticle : EnergyParticle {
+
+		protected override void Start () {
+			base.Start ();
 		}
+
+		protected void Update() {
+			if (GetComponent<Rigidbody2D> ().velocity.magnitude < 1e-1) {
+				Destroy (gameObject);
+			}
+		}
+
 	}
 
 }

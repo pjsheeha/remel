@@ -8,6 +8,12 @@ namespace Remel.Player {
 
 	[RequireComponent(typeof(PlayerManager))]
 
+	/**
+	 * PlayerEnergyCollector class stores how many neg-energy particles the
+	 * player collects, sets energy capacity, and detects energy saturation
+	 * 
+	 * Also changes player color proportional to saturation (subject to change)
+	 */
 	public class PlayerEnergyCollector : MonoBehaviour {
 
 		[SerializeField]
@@ -45,6 +51,7 @@ namespace Remel.Player {
 			playerEnergy--;
 		}
 
+		// boolean that gets used in PlayerManager component
 		public bool IncrementEnergy() {
 			if (playerEnergy < energyCapacity) {
 				playerEnergy++;
