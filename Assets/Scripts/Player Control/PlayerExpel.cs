@@ -26,7 +26,7 @@ namespace Remel.Player {
 			if (Input.GetKeyDown (KeyCode.DownArrow) && playerManager.Energy > 0) {
 				// Initiate expel particle animation if energy > 0
 
-				playerManager.PauseMovement ();
+				// playerManager.PauseMovement (); // pauses movement when expelling energy, can be commented out
 				playerManager.TriggerAnimation ("spit");
 			}
 		}

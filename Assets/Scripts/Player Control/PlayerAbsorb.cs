@@ -40,9 +40,6 @@ namespace Remel.Player {
 		// checks for key press and toggles 'absorption' boolean
 		// also toggles pause/resume movement in PlayerManager component
 		private void CheckInitiate() {
-			if (!playerManager.isGrounded) {
-				return;
-			}
 
 			// absorption is true if key pressed and neg-energy isn't saturated (PlayerEnergyCollector)
 			absorption = Input.GetKey (KeyCode.Space) && !playerManager.isSaturated;
