@@ -68,7 +68,10 @@ namespace Remel.Player {
 		private Animator anim;
 
 		// Use this for initialization
-		void Start () {
+		protected override void Awake () {
+
+			base.Awake ();
+
 			anim = GetComponent<Animator> ();
 			groundCheck = GetComponent<PlayerGroundCheck> ();
 			playerEnergy = GetComponent<PlayerEnergyCollector> ();

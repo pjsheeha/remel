@@ -22,6 +22,10 @@ namespace Remel.Managers {
 
 		PlayerMovement playerMovement;
 
+		protected void OnEnable() {
+			print("GameManager Enabled");
+		}
+
 		// Use this for initialization
 		void Start () {
 			playerMovement = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerMovement> ();

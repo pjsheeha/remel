@@ -52,7 +52,9 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\LevelManager.cs" />
      <Compile Include="Assets\Scripts\Managers\PlayerManager.cs" />
+     <Compile Include="Assets\Scripts\Objects\LevelGate.cs" />
      <Compile Include="Assets\Scripts\Objects\Particles\EnergyParticle.cs" />
      <Compile Include="Assets\Scripts\Objects\Particles\NegativeEnergyParticle.cs" />
      <Compile Include="Assets\Scripts\Objects\Particles\PositiveEnergyParticle.cs" />
