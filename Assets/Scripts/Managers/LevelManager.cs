@@ -30,11 +30,10 @@ namespace Remel.Managers {
 		}
 
 		protected void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-			Debug.Log ("OneSceneLoaded: " + scene.name);
-			Debug.Log (mode);
 
 			PlayerManager.Instance.ResumeMovement ();
 			PlayerManager.Instance.rb.position = spawnPosition;
+		
 		}
 
 	}
