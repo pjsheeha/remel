@@ -79,6 +79,10 @@ public class EnemyMovement : MonoBehaviour {
 
 	}
 
+	public void SetPlayerSpotted(bool v) {
+		this.playerSpotted = v;
+	}
+
 	protected IEnumerator MoveForSeconds(Vector2 direction, float time) {
 		yield return new WaitForSeconds (time);
 
