@@ -16,7 +16,10 @@ public class EnemyManager : MonoBehaviour {
 		get;
 	}
 
-	private Animator anim;
+	public Animator anim {
+		private set;
+		get;
+	}
 
 	// Use this for initialization
 	void Start () {

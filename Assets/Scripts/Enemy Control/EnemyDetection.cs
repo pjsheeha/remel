@@ -14,10 +14,12 @@ public class EnemyDetection : MonoBehaviour {
 	[SerializeField]
 	protected float detectionRadius = 2f;
 
+	protected EnemyManager enemyManager;
 	protected int detectionMask;
 
-	// Use this for initialization
 	void Start () {
+		enemyManager = GetComponent<EnemyManager> ();
+
 		UpdateDetectionMask ();
 	}
 	
@@ -25,7 +27,11 @@ public class EnemyDetection : MonoBehaviour {
 		Collider2D c = Physics2D.OverlapCircle (transform.position, detectionRadius, detectionMask);
 
 		if (c) {
-			
+			if (!enemyManager.anim.GetBool ("chasing")) {
+				enemyManager.SetAnim ("chasing", true);
+			}
+		} else {
+			enemyManager.SetAnim ("chasing", false);
 		}
 	}
 
