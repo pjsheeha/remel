@@ -30,6 +30,12 @@ namespace Remel.Player {
 			}
 		}
 
+		public bool isMoving {
+			get {
+				return playerMovement.isMoving;
+			}
+		}
+
 		// returns energy saturation from PlayerEnergyCollector
 		public bool isSaturated {
 			get {

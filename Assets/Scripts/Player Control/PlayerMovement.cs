@@ -19,6 +19,12 @@ namespace Remel.Player {
 		[SerializeField]
 		protected int numJumps = 5;
 
+		public bool isMoving {
+			get {
+				return this.h_Input != 0f;
+			}
+		}
+
 		private PlayerManager playerManager;
 
 		private float h_Input;

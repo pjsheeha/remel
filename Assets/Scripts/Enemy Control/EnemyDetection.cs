@@ -13,8 +13,17 @@ public class EnemyDetection : MonoBehaviour {
 	protected DetectionType detectionType;
 	[SerializeField]
 	protected float detectionRadius = 2f;
+	[SerializeField]
+	protected bool loseTargetWhenOOR = true;
+
+	public Transform Target {
+		protected set;
+		get;
+	}
 
 	protected EnemyManager enemyManager;
+	protected Transform target;
+
 	protected int detectionMask;
 
 	void Start () {
@@ -22,16 +31,18 @@ public class EnemyDetection : MonoBehaviour {
 
 		UpdateDetectionMask ();
 	}
-	
-	void FixedUpdate () {
-		Collider2D c = Physics2D.OverlapCircle (transform.position, detectionRadius, detectionMask);
 
-		if (c) {
-			if (!enemyManager.anim.GetBool ("chasing")) {
-				enemyManager.SetAnim ("chasing", true);
-			}
-		} else {
-			enemyManager.SetAnim ("chasing", false);
+	protected virtual void OnTriggerEnter2D(Collider2D c) {
+		if (1 << c.gameObject.layer == detectionMask) {
+			target = c.transform;
+
+			enemyManager.SetTarget (target.position);
+		}
+	}
+
+	protected virtual void OnTriggerExit2D(Collider2D c) {
+		if (1 << c.gameObject.layer == detectionMask) {
+			target = loseTargetWhenOOR ? null : target;
 		}
 	}
 

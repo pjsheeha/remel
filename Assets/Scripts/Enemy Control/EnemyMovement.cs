@@ -17,13 +17,18 @@ public class EnemyMovement : MonoBehaviour {
 	protected Vector2 randomWalkDistance = new Vector2 (1f, 2f);
 
 	protected EnemyManager enemyManager;
+	protected Vector2 movementStart;
 
-	protected bool playerSpotted = false;
 	protected float dbTimer = 0f;
 	protected float dbInterval = Mathf.Infinity;
 
+	protected float moveTimer = 0f;
+	protected float moveDuration = 0f;
+
 	// Use this for initialization
 	protected virtual void Start () {
+		print (transform.position);
+		movementStart = transform.position;
 		dbInterval = Random.value * RandomBehaviorTime;
 
 		enemyManager = GetComponent <EnemyManager> ();
@@ -31,6 +36,10 @@ public class EnemyMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	protected virtual void Update () {
+
+		MoveToTarget ();
+
+		if (enemyManager.TargetSpotted) return;
 
 		dbTimer += Time.deltaTime;
 
@@ -40,6 +49,14 @@ public class EnemyMovement : MonoBehaviour {
 			dbInterval = RandomBehaviorTime;
 			dbTimer = 0f;
 		}
+	}
+
+	private void MoveToTarget() {
+		Vector2 target = enemyManager.Target;
+
+		moveTimer += Time.deltaTime;
+
+		enemyManager.rb.position = Vector2.Lerp (movementStart, enemyManager.Target, moveTimer / moveDuration);
 	}
 
 	// default behavior can be overwritten in extension scripts
@@ -67,27 +84,28 @@ public class EnemyMovement : MonoBehaviour {
 
 	public void Move(Vector3 direction, float distance) {
 
-		float speed = playerSpotted ? moveSpeed : idleSpeed;
-		float moveTime = distance / speed;
+		this.movementStart = transform.position;
 
-		enemyManager.rb.velocity = direction * speed;
+		float speed = enemyManager.TargetSpotted ? moveSpeed : idleSpeed;
 
-		enemyManager.SetAnim (playerSpotted ? "chasing" : "moving", true);
+		enemyManager.SetTarget (direction * distance);
+
+		this.moveDuration = distance / speed;
+		this.moveTimer = 0f;
+
+		enemyManager.SetAnim (enemyManager.TargetSpotted ? "chasing" : "moving", true);
 		enemyManager.sr.flipX = direction.x > 0f ? true : false;
 
-		StartCoroutine (MoveForSeconds (direction, moveTime));
-
 	}
 
-	public void SetPlayerSpotted(bool v) {
-		this.playerSpotted = v;
+	public void Move(Vector3 target) {
+		Vector2 direction = target - transform.position;
+		direction.y = 0f;
+
+		float distance = direction.magnitude;
+		direction.Normalize ();
+
+		Move (direction, distance);
 	}
 
-	protected IEnumerator MoveForSeconds(Vector2 direction, float time) {
-		yield return new WaitForSeconds (time);
-
-		enemyManager.rb.velocity = Vector2.zero;
-
-		enemyManager.SetAnim (playerSpotted ? "chasing" : "moving", false);
-	}
 }
