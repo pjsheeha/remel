@@ -1,16 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public enum DetectionType {
-	PlayerSprite,
-	PlayerFootsteps
+	PlayerMarker,
+	Footstep
 }
 
 public class EnemyDetection : MonoBehaviour {
 
 	[SerializeField]
-	protected DetectionType detectionType;
+	protected DetectionType detection;
 	[SerializeField]
 	protected float detectionRadius = 2f;
 	[SerializeField]
@@ -21,6 +22,12 @@ public class EnemyDetection : MonoBehaviour {
 		get;
 	}
 
+	public Type detectionType {
+		get {
+			return Type.GetType (detection.ToString ());
+		}
+	}
+
 	protected EnemyManager enemyManager;
 	protected Transform target;
 
@@ -28,8 +35,6 @@ public class EnemyDetection : MonoBehaviour {
 
 	void Start () {
 		enemyManager = GetComponent<EnemyManager> ();
-
-		UpdateDetectionMask ();
 	}
 
 	protected virtual void OnTriggerEnter2D(Collider2D c) {
@@ -44,9 +49,5 @@ public class EnemyDetection : MonoBehaviour {
 		if (1 << c.gameObject.layer == detectionMask) {
 			target = loseTargetWhenOOR ? null : target;
 		}
-	}
-
-	protected void UpdateDetectionMask() {
-		detectionMask = detectionType == DetectionType.PlayerSprite ? 1 << LayerMask.NameToLayer ("Player") : 1 << LayerMask.NameToLayer ("Footstep");
 	}
 }

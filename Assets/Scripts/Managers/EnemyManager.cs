@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,15 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyMovement))]
 
 public class EnemyManager : MonoBehaviour {
+
+	[SerializeField]
+	protected bool spriteLeftByDefault = false;
+
+	public bool isMoving {
+		get {
+			return enemyMovement.isMoving;
+		}
+	}
 
 	public Rigidbody2D rb {
 		private set;
@@ -34,6 +44,14 @@ public class EnemyManager : MonoBehaviour {
 		get;
 	}
 
+	public Type DetectionType {
+		get {
+			return enemyDetection.detectionType;
+		}
+	}
+
+	public Action onDetection;
+
 	protected EnemyDetection enemyDetection;
 	protected EnemyMovement enemyMovement;
 
@@ -49,7 +67,16 @@ public class EnemyManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		Animate ();
+	}
+
+	private void Animate() {
+		SetAnim (TargetSpotted ? "chasing" : "walking", true);
+		SetAnim (TargetSpotted ? "walking" : "chasing", false);
+
+		SetAnim ("moving", isMoving);
+
+		sr.flipX = enemyMovement.Displacement.x > 0f ? (spriteLeftByDefault ? true : false) : (spriteLeftByDefault ? false : true);
 	}
 
 	public void SetTarget(Vector2 target) {
@@ -62,5 +89,15 @@ public class EnemyManager : MonoBehaviour {
 
 	public void TriggerAnim(string animation) {
 		anim.SetTrigger (animation);
+	}
+
+	public bool SameDetectionType(DetectionMarker dm) {
+		return dm.GetType () == DetectionType;
+	}
+
+	public void OnDetection() {
+		if (onDetection != null) {
+			onDetection ();
+		}
 	}
 }

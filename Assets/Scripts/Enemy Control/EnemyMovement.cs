@@ -16,6 +16,16 @@ public class EnemyMovement : MonoBehaviour {
 	[SerializeField]
 	protected Vector2 randomWalkDistance = new Vector2 (1f, 2f);
 
+	public bool isMoving {
+		private set;
+		get;
+	}
+
+	public Vector2 Displacement {
+		private set;
+		get;
+	}
+
 	protected EnemyManager enemyManager;
 	protected Vector2 movementStart;
 
@@ -27,17 +37,17 @@ public class EnemyMovement : MonoBehaviour {
 
 	// Use this for initialization
 	protected virtual void Start () {
-		print (transform.position);
 		movementStart = transform.position;
 		dbInterval = Random.value * RandomBehaviorTime;
 
 		enemyManager = GetComponent <EnemyManager> ();
+		enemyManager.SetTarget (movementStart);
 	}
 	
 	// Update is called once per frame
 	protected virtual void Update () {
 
-		MoveToTarget ();
+		UpdateMovement ();
 
 		if (enemyManager.TargetSpotted) return;
 
@@ -51,12 +61,17 @@ public class EnemyMovement : MonoBehaviour {
 		}
 	}
 
-	private void MoveToTarget() {
-		Vector2 target = enemyManager.Target;
-
+	protected void UpdateMovement() {
 		moveTimer += Time.deltaTime;
 
-		enemyManager.rb.position = Vector2.Lerp (movementStart, enemyManager.Target, moveTimer / moveDuration);
+		Vector2 newPosition = enemyManager.rb.position;
+		newPosition.x = Mathf.Lerp (movementStart.x, enemyManager.Target.x, moveTimer / moveDuration);
+
+		enemyManager.rb.position = newPosition;
+
+		if (moveTimer / moveDuration >= 1f) {
+			isMoving = false;
+		}
 	}
 
 	// default behavior can be overwritten in extension scripts
@@ -77,35 +92,28 @@ public class EnemyMovement : MonoBehaviour {
 	}
 
 	public void RandomMove() {
-		Vector3 direction = Vector3.right * (Random.value > 0.5f ? 1f : -1f);
+		Vector2 direction = Vector2.right * (Random.value > 0.5f ? 1f : -1f);
+		Vector2 randomLocation = enemyManager.rb.position + direction * RandomWalkDistance;
 
-		Move (direction, RandomWalkDistance);
+		Move (randomLocation);
 	}
 
-	public void Move(Vector3 direction, float distance) {
+	public void Move(Vector2 location) {
+
+		isMoving = true;
+
+		enemyManager.SetTarget (location);
 
 		this.movementStart = transform.position;
 
 		float speed = enemyManager.TargetSpotted ? moveSpeed : idleSpeed;
 
-		enemyManager.SetTarget (direction * distance);
+		Displacement = location - enemyManager.rb.position;
 
-		this.moveDuration = distance / speed;
+		this.moveDuration = Displacement.magnitude / speed;
 		this.moveTimer = 0f;
 
-		enemyManager.SetAnim (enemyManager.TargetSpotted ? "chasing" : "moving", true);
-		enemyManager.sr.flipX = direction.x > 0f ? true : false;
 
-	}
-
-	public void Move(Vector3 target) {
-		Vector2 direction = target - transform.position;
-		direction.y = 0f;
-
-		float distance = direction.magnitude;
-		direction.Normalize ();
-
-		Move (direction, distance);
 	}
 
 }

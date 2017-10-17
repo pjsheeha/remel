@@ -51,8 +51,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Footstep.cs" />
-     <Compile Include="Assets\PlayerFootsteps.cs" />
      <Compile Include="Assets\Scripts\Enemy Control\Anteater\AnteaterMovement.cs" />
      <Compile Include="Assets\Scripts\Enemy Control\EnemyDetection.cs" />
      <Compile Include="Assets\Scripts\Enemy Control\EnemyMovement.cs" />
@@ -68,12 +66,16 @@
      <Compile Include="Assets\Scripts\Player Control\PlayerAbsorb.cs" />
      <Compile Include="Assets\Scripts\Player Control\PlayerEnergyCollector.cs" />
      <Compile Include="Assets\Scripts\Player Control\PlayerExpel.cs" />
+     <Compile Include="Assets\Scripts\Player Control\PlayerFootsteps.cs" />
      <Compile Include="Assets\Scripts\Player Control\PlayerGroundCheck.cs" />
      <Compile Include="Assets\Scripts\Player Control\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\Player Control\PlayerShooting.cs" />
      <Compile Include="Assets\Scripts\Player Control\Scratch\GravityChangeOnJump.cs" />
      <Compile Include="Assets\Scripts\Player Control\Scratch\JumpReplacement.cs" />
+     <Compile Include="Assets\Scripts\Utilities\DetectionMarker.cs" />
+     <Compile Include="Assets\Scripts\Utilities\Footstep.cs" />
      <Compile Include="Assets\Scripts\Utilities\PersistentSingleton.cs" />
+     <Compile Include="Assets\Scripts\Utilities\PlayerMarker.cs" />
      <Compile Include="Assets\Scripts\Utilities\Singleton.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
