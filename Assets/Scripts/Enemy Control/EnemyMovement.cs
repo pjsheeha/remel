@@ -41,7 +41,7 @@ public class EnemyMovement : MonoBehaviour {
 		dbInterval = Random.value * RandomBehaviorTime;
 
 		enemyManager = GetComponent <EnemyManager> ();
-		enemyManager.SetTarget (movementStart);
+		enemyManager.SetDestination (movementStart);
 	}
 	
 	// Update is called once per frame
@@ -65,11 +65,12 @@ public class EnemyMovement : MonoBehaviour {
 		moveTimer += Time.deltaTime;
 
 		Vector2 newPosition = enemyManager.rb.position;
-		newPosition.x = Mathf.Lerp (movementStart.x, enemyManager.Target.x, moveTimer / moveDuration);
+		newPosition.x = Mathf.Lerp (movementStart.x, enemyManager.Destination.x, moveTimer / moveDuration);
 
 		enemyManager.rb.position = newPosition;
 
 		if (moveTimer / moveDuration >= 1f) {
+			moveTimer = moveDuration;
 			isMoving = false;
 		}
 	}
@@ -95,14 +96,31 @@ public class EnemyMovement : MonoBehaviour {
 		Vector2 direction = Vector2.right * (Random.value > 0.5f ? 1f : -1f);
 		Vector2 randomLocation = enemyManager.rb.position + direction * RandomWalkDistance;
 
-		Move (randomLocation);
+		enemyManager.SetDestination (randomLocation);
+		// Move (randomLocation);
+	}
+
+	public void SetMovement() {
+
+		isMoving = true;
+
+		this.movementStart = transform.position;
+
+		float speed = enemyManager.TargetSpotted ? moveSpeed : idleSpeed;
+
+		Displacement = enemyManager.Destination - enemyManager.rb.position;
+
+		this.moveDuration = Displacement.magnitude / speed;
+		this.moveTimer = 0f;
 	}
 
 	public void Move(Vector2 location) {
 
+		print (moveTimer);
+
 		isMoving = true;
 
-		enemyManager.SetTarget (location);
+		enemyManager.SetDestination (location);
 
 		this.movementStart = transform.position;
 

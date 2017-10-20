@@ -29,7 +29,6 @@ public class EnemyDetection : MonoBehaviour {
 	}
 
 	protected EnemyManager enemyManager;
-	protected Transform target;
 
 	protected int detectionMask;
 
@@ -37,17 +36,29 @@ public class EnemyDetection : MonoBehaviour {
 		enemyManager = GetComponent<EnemyManager> ();
 	}
 
-	protected virtual void OnTriggerEnter2D(Collider2D c) {
-		if (1 << c.gameObject.layer == detectionMask) {
-			target = c.transform;
+	void Update () {
+		// detect object in sprite, probably wanna do box overlaps in Update() over trigger enter
+	}
 
-			enemyManager.SetTarget (target.position);
+	protected virtual void OnTriggerEnter2D(Collider2D c) {
+		if (c.GetComponent<DetectionMarker> ()) {
+			Type t = c.GetComponent<DetectionMarker> ().GetType ();
+
+			if (t == detectionType) {
+
+				Target = c.transform;
+
+				enemyManager.SetDestination (Target.position);
+
+			}
+
 		}
+
 	}
 
 	protected virtual void OnTriggerExit2D(Collider2D c) {
 		if (1 << c.gameObject.layer == detectionMask) {
-			target = loseTargetWhenOOR ? null : target;
+			Target = loseTargetWhenOOR ? null : Target;
 		}
 	}
 }

@@ -21,7 +21,7 @@ public class AnteaterMovement : EnemyMovement {
 	}
 
 	protected void ChaseFootPrint() {
-		print ("chase!");
+		
 	}
 
 }

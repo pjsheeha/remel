@@ -39,7 +39,7 @@ public class EnemyManager : MonoBehaviour {
 		}
 	}
 
-	public Vector2 Target {
+	public Vector2 Destination {
 		private set;
 		get;
 	}
@@ -68,6 +68,8 @@ public class EnemyManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Animate ();
+
+		print (TargetSpotted);
 	}
 
 	private void Animate() {
@@ -79,8 +81,12 @@ public class EnemyManager : MonoBehaviour {
 		sr.flipX = enemyMovement.Displacement.x > 0f ? (spriteLeftByDefault ? true : false) : (spriteLeftByDefault ? false : true);
 	}
 
-	public void SetTarget(Vector2 target) {
-		Target = target;
+	public void SetDestination(Vector2 dest) {
+		Destination = dest;
+
+		if (enemyMovement) {
+			enemyMovement.SetMovement ();
+		}
 	}
 
 	public void SetAnim(string animation, bool value) {
