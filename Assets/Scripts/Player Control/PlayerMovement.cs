@@ -63,8 +63,10 @@ namespace Remel.Player {
 
 				if (playerManager.isGrounded) {
 					playerManager.TriggerAnimation ("jump");
+					SoundManager.instance.PlaySound ("jump");
 				} else {
 					playerManager.TriggerAnimation ("air_jump");
+					SoundManager.instance.PlaySound ("jump");
 				}
 			}
 		}
