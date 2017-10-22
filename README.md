@@ -1,3 +1,2 @@
-# remel
-Remel's game is being made here
-This is the README for Remel. GitHub seems pretty cool...
+# Enemy 4: 'Fatboy'
+Files are in "fatboy-assets/Assets" folder.
