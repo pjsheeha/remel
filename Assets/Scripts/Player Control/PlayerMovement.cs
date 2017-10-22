@@ -78,7 +78,7 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	public void ResetPosition() {
-		playerManager.rb.position = new Vector3 (0f, -0.25f, 0f);
+		playerManager.rb.position = LevelManager.Instance.spawnPosition;
 		playerManager.rb.velocity = Vector2.zero;
 	}
 }

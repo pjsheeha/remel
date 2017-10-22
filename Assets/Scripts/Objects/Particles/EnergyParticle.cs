@@ -9,15 +9,21 @@ public class EnergyParticle : MonoBehaviour {
 	[SerializeField]
 	protected Vector2 startSpeedRange = new Vector2 (0.2f, 0.4f);
 
-	private ParticleSystem partSys;
+	protected ParticleSystem partSys;
 
 	// Use this for initialization
 	protected virtual void Start () {
+
 		partSys = GetComponent<ParticleSystem> ();
 		ParticleSystem.MainModule main = partSys.main;
 
 		main.startLifetime = Random.value * (lifetimeRange.y - lifetimeRange.x) + lifetimeRange.x;
 		main.startSpeedMultiplier = Random.value * (startSpeedRange.y - startSpeedRange.x) + startSpeedRange.x;
+	}
+
+	public void Reset() {
+		partSys.Play ();
+		GetComponent<CircleCollider2D> ().enabled = true;
 	}
 
 }

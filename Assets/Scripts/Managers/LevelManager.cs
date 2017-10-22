@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class LevelManager : Singleton<LevelManager> {
 
 	[SerializeField]
-	protected Vector2 spawnPosition = Vector2.zero;
+	public Vector2 spawnPosition = Vector2.zero;
 
 	public bool CollectedAllEnergy {
 		get {

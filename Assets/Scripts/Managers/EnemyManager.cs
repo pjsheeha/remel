@@ -6,11 +6,18 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(EnemyDetection))]
 [RequireComponent(typeof(EnemyMovement))]
+[RequireComponent(typeof(EnemyCollision))]
 
 public class EnemyManager : MonoBehaviour {
 
 	[SerializeField]
 	protected bool spriteLeftByDefault = false;
+
+	public bool SpriteLeftByDefault {
+		get {
+			return this.spriteLeftByDefault;
+		}
+	}
 
 	public bool isMoving {
 		get {
@@ -60,6 +67,7 @@ public class EnemyManager : MonoBehaviour {
 
 	protected EnemyDetection enemyDetection;
 	protected EnemyMovement enemyMovement;
+	protected EnemyCollision enemyCollision;
 
 	// Use this for initialization
 	void Start () {
@@ -69,6 +77,7 @@ public class EnemyManager : MonoBehaviour {
 
 		enemyDetection = GetComponent<EnemyDetection> ();
 		enemyMovement = GetComponent<EnemyMovement> ();
+		enemyCollision = GetComponent<EnemyCollision> ();
 	}
 	
 	// Update is called once per frame
@@ -95,6 +104,10 @@ public class EnemyManager : MonoBehaviour {
 		if (enemyMovement) {
 			enemyMovement.SetMovement ();
 		}
+	}
+
+	public bool DetectCollision(Vector2 position) {
+		return enemyCollision.DetectionCollision (position);
 	}
 
 	public void SetAnim(string animation, bool value) {

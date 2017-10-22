@@ -63,6 +63,8 @@ public class EnemyDetection : MonoBehaviour {
 		if (Target != null) {
 			enemyManager.FollowTarget ();
 		}
+
+		// implementation using BoxCast in two directions
 	}
 
 	/*

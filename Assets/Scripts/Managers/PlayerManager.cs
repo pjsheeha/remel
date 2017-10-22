@@ -10,6 +10,10 @@ public class PlayerManager : PersistentSingleton<PlayerManager> {
 
 	[SerializeField]
 	private Transform t_mouth;
+	[SerializeField]
+	protected float knockback = 8f;
+	[SerializeField]
+	protected float knockbackTime = 0.4f;
 
 	// player's mouth transform is read-only - can't be tampered with outside
 	public Transform mouth {
@@ -35,6 +39,23 @@ public class PlayerManager : PersistentSingleton<PlayerManager> {
 	public bool isSaturated {
 		get {
 			return playerEnergy.isSaturated;
+		}
+	}
+
+	public bool inControl {
+		protected set;
+		get;
+	}
+
+	public float Knockback {
+		get {
+			return this.knockback;
+		}
+	}
+
+	public float KnockbackTime {
+		get {
+			return this.knockbackTime;
 		}
 	}
 
@@ -120,6 +141,11 @@ public class PlayerManager : PersistentSingleton<PlayerManager> {
 		useMovement = true;
 	}
 
+	public void LoseControl(float t) {
+		PauseMovement ();
+		StartCoroutine (RegainMovementInSeconds (t));
+	}
+
 	// calls SetBool in the Animator component
 	public void SetAnimation(string animationName, bool val) {
 		anim.SetBool (animationName, val);
@@ -128,5 +154,10 @@ public class PlayerManager : PersistentSingleton<PlayerManager> {
 	// calls SetTrigger in the Animator component
 	public void TriggerAnimation(string animationName) {
 		anim.SetTrigger (animationName);
+	}
+
+	protected IEnumerator RegainMovementInSeconds(float t) {
+		yield return new WaitForSeconds (t);
+		ResumeMovement ();
 	}
 }

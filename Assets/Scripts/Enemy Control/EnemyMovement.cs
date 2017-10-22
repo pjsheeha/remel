@@ -65,9 +65,14 @@ public class EnemyMovement : MonoBehaviour {
 		moveTimer += Time.deltaTime;
 
 		Vector2 newPosition = enemyManager.rb.position;
+
 		newPosition.x = Mathf.Lerp (movementStart.x, enemyManager.Destination.x, moveTimer / moveDuration);
 
-		enemyManager.rb.position = newPosition;
+		if (!enemyManager.DetectCollision (newPosition)) {
+			enemyManager.rb.position = newPosition;
+		} else {
+			enemyManager.SetDestination (enemyManager.rb.position);
+		}
 
 		if (moveTimer / moveDuration >= 1f) {
 			moveTimer = moveDuration;

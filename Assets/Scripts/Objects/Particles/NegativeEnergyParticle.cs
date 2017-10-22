@@ -16,7 +16,8 @@ public class NegativeEnergyParticle : EnergyParticle {
 			if (pm.GainEnergy ()) {
 				pm.UpdatePlayerColor ();
 
-				Destroy (gameObject);
+				partSys.Stop ();
+				GetComponent<CircleCollider2D> ().enabled = false;
 			}
 		}
 	}
