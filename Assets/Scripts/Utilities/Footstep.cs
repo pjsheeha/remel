@@ -23,6 +23,7 @@ public class Footstep : DetectionMarker {
 
 			if (em.SameDetectionType (this)) {
 				em.OnDetection ();
+				Destroy (gameObject);
 			}
 
 		}

@@ -2,63 +2,58 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using Remel.Player;
+[RequireComponent(typeof(PlayerManager))]
 
-namespace Remel.Player {
+/**
+ * PlayerEnergyCollector class stores how many neg-energy particles the
+ * player collects, sets energy capacity, and detects energy saturation
+ * 
+ * Also changes player color proportional to saturation (subject to change)
+ */
+public class PlayerEnergyCollector : MonoBehaviour {
 
-	[RequireComponent(typeof(PlayerManager))]
+	[SerializeField]
+	protected Color saturationColor;
+	[SerializeField]
+	protected int energyCapacity = 10;
 
-	/**
-	 * PlayerEnergyCollector class stores how many neg-energy particles the
-	 * player collects, sets energy capacity, and detects energy saturation
-	 * 
-	 * Also changes player color proportional to saturation (subject to change)
-	 */
-	public class PlayerEnergyCollector : MonoBehaviour {
+	public bool isSaturated {
+		get {
+			return playerEnergy >= energyCapacity;
+		}
+	}
 
-		[SerializeField]
-		protected Color saturationColor;
-		[SerializeField]
-		protected int energyCapacity = 10;
+	public Color SaturationColor {
+		get {
+			return this.saturationColor;
+		}
+	}
 
-		public bool isSaturated {
-			get {
-				return playerEnergy >= energyCapacity;
-			}
+	public float Saturation {
+		get {
+			return (float)playerEnergy / (float)energyCapacity;
+		}
+	}
+
+	public int Energy {
+		get {
+			return playerEnergy;
+		}
+	}
+
+	protected int playerEnergy = 0;
+
+	public void LoseEnergy () {
+		playerEnergy--;
+	}
+
+	// boolean that gets used in PlayerManager component
+	public bool IncrementEnergy() {
+		if (playerEnergy < energyCapacity) {
+			playerEnergy++;
+			return true;
 		}
 
-		public Color SaturationColor {
-			get {
-				return this.saturationColor;
-			}
-		}
-
-		public float Saturation {
-			get {
-				return (float)playerEnergy / (float)energyCapacity;
-			}
-		}
-
-		public int Energy {
-			get {
-				return playerEnergy;
-			}
-		}
-
-		protected int playerEnergy = 0;
-
-		public void LoseEnergy () {
-			playerEnergy--;
-		}
-
-		// boolean that gets used in PlayerManager component
-		public bool IncrementEnergy() {
-			if (playerEnergy < energyCapacity) {
-				playerEnergy++;
-				return true;
-			}
-
-			return false;
-		}
+		return false;
 	}
 }

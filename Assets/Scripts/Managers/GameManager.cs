@@ -2,45 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using Remel.Utilities;
-using Remel.Player;
+/**
+ * Persistent Singleton game manager object. Will keep track of game data
+ * and can be called using GameManager.Instance
+ */
+public class GameManager : PersistentSingleton<GameManager> {
 
-namespace Remel.Managers {
+	[SerializeField]
+	public GameObject projectilePrefab;
+	[SerializeField]
+	public GameObject negativeEnergyPrefab;
+	[SerializeField]
+	public GameObject positiveEnergyPrefab;
 
-	/**
-	 * Persistent Singleton game manager object. Will keep track of game data
-	 * and can be called using GameManager.Instance
-	 */
-	public class GameManager : PersistentSingleton<GameManager> {
+	PlayerMovement playerMovement;
 
-		[SerializeField]
-		public GameObject projectilePrefab;
-		[SerializeField]
-		public GameObject negativeEnergyPrefab;
-		[SerializeField]
-		public GameObject positiveEnergyPrefab;
+	protected void OnEnable() {
+		print("GameManager Enabled");
+	}
 
-		PlayerMovement playerMovement;
-
-		protected void OnEnable() {
-			print("GameManager Enabled");
-		}
-
-		// Use this for initialization
-		void Start () {
-			playerMovement = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerMovement> ();
-		}
+	// Use this for initialization
+	void Start () {
+		playerMovement = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerMovement> ();
+	}
+	
+	// Update is called once per frame
+	void Update () {
 		
-		// Update is called once per frame
-		void Update () {
-			
-		}
+	}
 
-		void OnGUI() {
-			if (GUI.Button (new Rect (10, 10, 150, 30), "Reset")) {
-				if (playerMovement != null) {
-					playerMovement.ResetPosition ();
-				}
+	void OnGUI() {
+		if (GUI.Button (new Rect (10, 10, 150, 30), "Reset")) {
+			if (playerMovement != null) {
+				playerMovement.ResetPosition ();
 			}
 		}
 	}

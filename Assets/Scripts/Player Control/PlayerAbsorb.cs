@@ -2,71 +2,65 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using Remel.Player;
-using Remel.Objects;
+[RequireComponent (typeof(PlayerManager))]
 
-namespace Remel.Player {
+/**
+ * PlayerAbsorb class checks for player input (Space bar) to initiate absorption
+ * of negative energy particles.
+ */
+public class PlayerAbsorb : MonoBehaviour {
 
-	[RequireComponent (typeof(PlayerManager))]
+	[SerializeField]
+	protected float absorptionPower = 10f;
 
-	/**
-	 * PlayerAbsorb class checks for player input (Space bar) to initiate absorption
-	 * of negative energy particles.
-	 */
-	public class PlayerAbsorb : MonoBehaviour {
+	private PlayerManager playerManager;
 
-		[SerializeField]
-		protected float absorptionPower = 10f;
+	private bool absorption = false;
 
-		private PlayerManager playerManager;
+	// Use this for initialization
+	void Start () {
+		playerManager = GetComponent<PlayerManager> ();
+	}
 
-		private bool absorption = false;
+	// Update is called once per frame
+	void Update () {
+		CheckInitiate ();
+	}
 
-		// Use this for initialization
-		void Start () {
-			playerManager = GetComponent<PlayerManager> ();
+	// absorption should be framerate invariant
+	void FixedUpdate() {
+		Absorb ();
+	}
+
+	// checks for key press and toggles 'absorption' boolean
+	// also toggles pause/resume movement in PlayerManager component
+	private void CheckInitiate() {
+
+		// absorption is true if key pressed and neg-energy isn't saturated (PlayerEnergyCollector)
+		absorption = Input.GetKey (KeyCode.Space) && !playerManager.isSaturated;
+
+		playerManager.SetAnimation ("sucking", absorption);
+
+		if (Input.GetKeyDown (KeyCode.Space) && absorption) {
+			playerManager.PauseMovement ();
+		} else if (Input.GetKeyUp (KeyCode.Space) && !absorption) {
+			playerManager.ResumeMovement ();
+		}
+	}
+
+	// called in FixedUpdate for Physics update
+	// applies force on neg-energy particles inversely proportional to the distance
+	// squared between player and each particle
+	private void Absorb() {
+		if (!absorption) {
+			return;
 		}
 
-		// Update is called once per frame
-		void Update () {
-			CheckInitiate ();
-		}
+		NegativeEnergyParticle[] negParticles = FindObjectsOfType<NegativeEnergyParticle> ();
 
-		// absorption should be framerate invariant
-		void FixedUpdate() {
-			Absorb ();
-		}
-
-		// checks for key press and toggles 'absorption' boolean
-		// also toggles pause/resume movement in PlayerManager component
-		private void CheckInitiate() {
-
-			// absorption is true if key pressed and neg-energy isn't saturated (PlayerEnergyCollector)
-			absorption = Input.GetKey (KeyCode.Space) && !playerManager.isSaturated;
-
-			playerManager.SetAnimation ("sucking", absorption);
-
-			if (Input.GetKeyDown (KeyCode.Space) && absorption) {
-				playerManager.PauseMovement ();
-			} else if (Input.GetKeyUp (KeyCode.Space) && !absorption) {
-				playerManager.ResumeMovement ();
-			}
-		}
-
-		// called in FixedUpdate for Physics update
-		// applies force on neg-energy particles inversely proportional to the distance
-		// squared between player and each particle
-		private void Absorb() {
-			if (!absorption) {
-				return;
-			}
-
-			NegativeEnergyParticle[] negParticles = FindObjectsOfType<NegativeEnergyParticle> ();
-
-			foreach (NegativeEnergyParticle neg in negParticles) {
-				Vector2 dist = transform.position - neg.transform.position;
-				neg.GetComponent<Rigidbody2D> ().AddForce (dist.normalized * absorptionPower / Mathf.Max (Mathf.Pow (dist.magnitude, 2f), 1f), ForceMode2D.Force);
-			}
+		foreach (NegativeEnergyParticle neg in negParticles) {
+			Vector2 dist = transform.position - neg.transform.position;
+			neg.GetComponent<Rigidbody2D> ().AddForce (dist.normalized * absorptionPower / Mathf.Max (Mathf.Pow (dist.magnitude, 2f), 1f), ForceMode2D.Force);
 		}
 	}
 }

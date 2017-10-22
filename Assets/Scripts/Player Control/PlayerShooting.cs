@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using Remel.Player;
-using Remel.Managers;
-
 /**
  * Potentially temporary component. Didn't bother putting it in a namespace.
  */

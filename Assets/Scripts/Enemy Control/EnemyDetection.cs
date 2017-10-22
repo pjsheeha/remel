@@ -8,14 +8,19 @@ public enum DetectionType {
 	Footstep
 }
 
+public enum DetectionShape {
+	Circle,
+	Rectangle
+}
+
 public class EnemyDetection : MonoBehaviour {
 
 	[SerializeField]
 	protected DetectionType detection;
 	[SerializeField]
-	protected float detectionRadius = 2f;
-	[SerializeField]
 	protected bool loseTargetWhenOOR = true;
+	[SerializeField]
+	protected float detectionSize = 5f;
 
 	public Transform Target {
 		protected set;
@@ -38,9 +43,31 @@ public class EnemyDetection : MonoBehaviour {
 
 	void Update () {
 		// detect object in sprite, probably wanna do box overlaps in Update() over trigger enter
+
+		Collider2D[] overlaps = Physics2D.OverlapBoxAll (enemyManager.rb.position, new Vector2 (detectionSize, enemyManager.sr.size.y), 0f);
+
+		foreach (Collider2D c in overlaps) {
+			if (c.GetComponent<DetectionMarker> () && Target == null) {
+				Type t = c.GetComponent<DetectionMarker> ().GetType ();
+
+				if (t == detectionType) {
+
+					Target = c.transform;
+
+					enemyManager.SetDestination (Target.position);
+
+				}
+			}
+		}
+
+		if (Target != null) {
+			enemyManager.FollowTarget ();
+		}
 	}
 
+	/*
 	protected virtual void OnTriggerEnter2D(Collider2D c) {
+		return;
 		if (c.GetComponent<DetectionMarker> ()) {
 			Type t = c.GetComponent<DetectionMarker> ().GetType ();
 
@@ -60,5 +87,5 @@ public class EnemyDetection : MonoBehaviour {
 		if (1 << c.gameObject.layer == detectionMask) {
 			Target = loseTargetWhenOOR ? null : Target;
 		}
-	}
+	}*/
 }

@@ -2,57 +2,51 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using Remel.Player;
+[RequireComponent(typeof(PlayerManager))]
 
-namespace Remel.Player {
+public class PlayerFootsteps : MonoBehaviour {
 
-	[RequireComponent(typeof(PlayerManager))]
+	[SerializeField]
+	protected GameObject footstepPrefab;
+	[SerializeField]
+	protected float footstepInterval = 0.5f;
 
-	public class PlayerFootsteps : MonoBehaviour {
+	private PlayerManager playerManager;
 
-		[SerializeField]
-		protected GameObject footstepPrefab;
-		[SerializeField]
-		protected float footstepInterval = 0.5f;
+	private float footstepTimer;
 
-		private PlayerManager playerManager;
+	// Use this for initialization
+	void Start () {
+		playerManager = GetComponent<PlayerManager> ();
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		SpawnFootsteps ();
+	}
 
-		private float footstepTimer;
+	private void SpawnFootsteps() {
+		footstepTimer += Time.deltaTime;
 
-		// Use this for initialization
-		void Start () {
-			playerManager = GetComponent<PlayerManager> ();
-		}
-		
-		// Update is called once per frame
-		void Update () {
-			SpawnFootsteps ();
-		}
+		if (footstepTimer >= footstepInterval) {
 
-		private void SpawnFootsteps() {
-			footstepTimer += Time.deltaTime;
+			footstepTimer = footstepInterval;
 
-			if (footstepTimer >= footstepInterval) {
+			if (playerManager.isGrounded) {
+				// Spawn footstep object if rb velocity is non-zero
+				GameObject footstep = Instantiate<GameObject> (footstepPrefab.gameObject, transform.position, Quaternion.identity);
 
-				footstepTimer = footstepInterval;
+				Collider2D[] cs = Physics2D.OverlapCircleAll (footstep.transform.position, footstep.GetComponent<CircleCollider2D> ().radius);
 
-				if (playerManager.isGrounded) {
-					// Spawn footstep object if rb velocity is non-zero
-					GameObject footstep = Instantiate<GameObject> (footstepPrefab.gameObject, transform.position, Quaternion.identity);
-
-					Collider2D[] cs = Physics2D.OverlapCircleAll (footstep.transform.position, footstep.GetComponent<CircleCollider2D> ().radius);
-
-					foreach (Collider2D c in cs) {
-						if (c.gameObject != footstep && c.GetComponent<Footstep> ()) {
-							Destroy (footstep);
-						}
+				foreach (Collider2D c in cs) {
+					if (c.gameObject != footstep && c.GetComponent<Footstep> ()) {
+						Destroy (footstep);
 					}
-
-					// Reset footstep timer
-					footstepTimer = 0f;
 				}
+
+				// Reset footstep timer
+				footstepTimer = 0f;
 			}
 		}
 	}
-
 }

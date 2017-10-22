@@ -39,6 +39,12 @@ public class EnemyManager : MonoBehaviour {
 		}
 	}
 
+	public Transform Target {
+		get {
+			return enemyDetection.Target;
+		}
+	}
+
 	public Vector2 Destination {
 		private set;
 		get;
@@ -68,8 +74,6 @@ public class EnemyManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Animate ();
-
-		print (TargetSpotted);
 	}
 
 	private void Animate() {
@@ -79,6 +83,10 @@ public class EnemyManager : MonoBehaviour {
 		SetAnim ("moving", isMoving);
 
 		sr.flipX = enemyMovement.Displacement.x > 0f ? (spriteLeftByDefault ? true : false) : (spriteLeftByDefault ? false : true);
+	}
+
+	public void FollowTarget() {
+		Destination = Target.position;
 	}
 
 	public void SetDestination(Vector2 dest) {

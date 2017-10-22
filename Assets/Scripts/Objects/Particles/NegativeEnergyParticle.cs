@@ -2,29 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using Remel.Player;
-using Remel.Objects;
+public class NegativeEnergyParticle : EnergyParticle {
 
-namespace Remel.Objects {
+	// Use this for initialization
+	protected override void Start () {
+		base.Start ();
+	}
 
-	public class NegativeEnergyParticle : EnergyParticle {
+	void OnTriggerEnter2D(Collider2D c) {
+		if (c.GetComponent<PlayerManager> ()) {
+			PlayerManager pm = c.GetComponent<PlayerManager> ();
 
-		// Use this for initialization
-		protected override void Start () {
-			base.Start ();
-		}
+			if (pm.GainEnergy ()) {
+				pm.UpdatePlayerColor ();
 
-		void OnTriggerEnter2D(Collider2D c) {
-			if (c.GetComponent<PlayerManager> ()) {
-				PlayerManager pm = c.GetComponent<PlayerManager> ();
-
-				if (pm.GainEnergy ()) {
-					pm.UpdatePlayerColor ();
-
-					Destroy (gameObject);
-				}
+				Destroy (gameObject);
 			}
 		}
 	}
-
 }
