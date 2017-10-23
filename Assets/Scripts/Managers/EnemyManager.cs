@@ -107,6 +107,10 @@ public class EnemyManager : MonoBehaviour {
 	}
 
 	public bool DetectCollision(Vector2 position) {
+		if (enemyCollision == null) {
+			return false;
+		}
+
 		return enemyCollision.DetectionCollision (position);
 	}
 
