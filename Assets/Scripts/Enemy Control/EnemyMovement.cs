@@ -5,9 +5,11 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour {
 
 	[SerializeField]
+	[Range(1e-6f,10)]
 	protected float idleSpeed = 1f;
 
 	[SerializeField]
+	[Range(1e-6f,10)]
 	protected float moveSpeed = 6f;
 
 	// set random walk interval

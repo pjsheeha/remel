@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "remel", "Assembly-CSharp.csproj", "{E54433E2-2666-EBAE-96D5-3E81D850F7F9}"
 EndProject
+Project("{45B371F2-1452-3E40-763D-F6795BE5CBCA}") = "remel", "Assembly-UnityScript.unityproj", "{F5FDAF5D-D865-29D5-3291-1E2F279F890C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{E54433E2-2666-EBAE-96D5-3E81D850F7F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E54433E2-2666-EBAE-96D5-3E81D850F7F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E54433E2-2666-EBAE-96D5-3E81D850F7F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5FDAF5D-D865-29D5-3291-1E2F279F890C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5FDAF5D-D865-29D5-3291-1E2F279F890C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5FDAF5D-D865-29D5-3291-1E2F279F890C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5FDAF5D-D865-29D5-3291-1E2F279F890C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

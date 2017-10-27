@@ -115,6 +115,9 @@ public class EnemyManager : MonoBehaviour {
 	}
 
 	public void SetAnim(string animation, bool value) {
+		if (!anim.runtimeAnimatorController) {
+			return;
+		}
 		anim.SetBool (animation, value);
 	}
 

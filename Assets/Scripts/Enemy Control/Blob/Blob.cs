@@ -45,7 +45,7 @@ public class Blob : MonoBehaviour {
 			if (transform.localScale [0] < 1)
 				transform.localScale = Vector3.one;
 
-			else if (transform.localScale [0] > 2.5)
+			else if (transform.localScale [0] > maxSize)
 				transform.localScale = Vector3.one * maxSize;
 		}
 

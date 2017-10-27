@@ -3,20 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelGate : MonoBehaviour {
+using Remel.Player;
 
-	public string nextLevel;
+using Remel.Objects;
 
-	protected void OnTriggerEnter2D (Collider2D c) {
-		if (c.GetComponent<PlayerManager> ()) {
-			PlayerManager pm = c.GetComponent<PlayerManager> ();
+namespace Remel.Objects {
 
-			if (LevelManager.Instance.CollectedAllEnergy) {
-				pm.PauseMovement ();
-				print ("Change Level");
+	public class LevelGate : MonoBehaviour {
 
-				SceneManager.LoadScene (nextLevel);
+		public string nextLevel;
+
+		protected void OnTriggerEnter2D (Collider2D c) {
+			if (c.GetComponent<PlayerManager> ()) {
+				PlayerManager pm = c.GetComponent<PlayerManager> ();
+
+
+					pm.PauseMovement ();
+					print ("Change Level");
+
+				SceneManager.LoadSceneAsync (nextLevel, LoadSceneMode.Single);
+
 			}
 		}
 	}
+
 }

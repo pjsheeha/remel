@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 /**
  * Manages level information (i.e. how much energy to move on)
  */
+
 public class LevelManager : Singleton<LevelManager> {
 
 	[SerializeField]
@@ -16,6 +17,7 @@ public class LevelManager : Singleton<LevelManager> {
 			NegativeEnergyParticle[] negParticles = FindObjectsOfType<NegativeEnergyParticle> ();
 
 			return negParticles.Length == 0;
+
 		}
 	}
 
