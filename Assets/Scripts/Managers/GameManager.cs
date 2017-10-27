@@ -35,6 +35,7 @@ public class GameManager : PersistentSingleton<GameManager> {
 		if (GUI.Button (new Rect (10, 10, 150, 30), "Reset")) {
 			if (playerMovement != null) {
 				playerMovement.ResetPosition ();
+				SoundManager.instance.PlaySound ("reset");
 			}
 		}
 	}
