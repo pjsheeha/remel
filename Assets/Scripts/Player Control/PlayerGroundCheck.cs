@@ -13,22 +13,27 @@ using UnityEngine;
  */
 public class PlayerGroundCheck : MonoBehaviour {
 
+	[SerializeField]
+	private Transform groundCheck;
+
 	public Vector3 verticalVelocitySeries;
 
 	private PlayerManager playerManager;
+	private int layerMask;
 
 	public bool isGrounded;
 
 	// Use this for initialization
 	void Start () {
 		playerManager = GetComponent<PlayerManager> ();
+		layerMask = ~(1 << LayerMask.NameToLayer ("Player"));
 
 		verticalVelocitySeries = Vector3.zero;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		GroundCheck ();
+		GroundCheckTwoPointOh ();
 
 		if (isGrounded) {
 			playerManager.ResetJumps ();
@@ -44,5 +49,11 @@ public class PlayerGroundCheck : MonoBehaviour {
 		verticalVelocitySeries.z = playerManager.rb.velocity.y;
 
 		isGrounded = verticalVelocitySeries.magnitude == 0f;
+	}
+
+	private void GroundCheckTwoPointOh() {
+		Collider2D c = Physics2D.OverlapBox (groundCheck.position, new Vector2 (playerManager.spriteRenderer.size.x, 0f), 0f, layerMask);
+
+		isGrounded = c != null;
 	}
 }
