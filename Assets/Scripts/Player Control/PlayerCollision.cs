@@ -21,9 +21,8 @@ public class PlayerCollision : MonoBehaviour {
 	protected void OnCollisionEnter2D(Collision2D c) {
 		if (c.transform.GetComponent<EnemyManager> ()) {
 
-			playerManager.rb.AddForce (c.contacts [0].normal * playerManager.Knockback, ForceMode2D.Impulse);
-
-			playerManager.LoseControl (playerManager.KnockbackTime);
+			EnemyManager em = c.transform.GetComponent<EnemyManager> ();
+				
 			playerManager.LoseEnergy ();
 
 			NegativeEnergyParticle[] negEnergies = FindObjectsOfType<NegativeEnergyParticle> ();
@@ -31,6 +30,16 @@ public class PlayerCollision : MonoBehaviour {
 			foreach (NegativeEnergyParticle negEnergy in negEnergies) {
 				negEnergy.Reset ();
 			}
+
+			if (!em.EnableKnockback) {
+				return;
+			}
+
+			// reflect player's speed
+			Vector2 reflectDirection = (playerManager.rb.position - em.rb.position).normalized; // rigidbodies for Vector2 positions
+			playerManager.rb.velocity = reflectDirection * playerManager.Knockback;
+
+			playerManager.LoseControl (playerManager.KnockbackTime);
 		}
 	}
 }

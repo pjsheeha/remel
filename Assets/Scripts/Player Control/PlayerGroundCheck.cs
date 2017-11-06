@@ -54,6 +54,6 @@ public class PlayerGroundCheck : MonoBehaviour {
 	private void GroundCheckTwoPointOh() {
 		Collider2D c = Physics2D.OverlapBox (groundCheck.position, new Vector2 (playerManager.spriteRenderer.size.x, 0f), 0f, layerMask);
 
-		isGrounded = c != null;
+		isGrounded = c != null && !c.transform.GetComponent<Collider2D>().isTrigger;
 	}
 }

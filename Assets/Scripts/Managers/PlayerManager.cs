@@ -139,6 +139,7 @@ public class PlayerManager : PersistentSingleton<PlayerManager> {
 	// resumes player movement inputs
 	public void ResumeMovement() {
 		useMovement = true;
+		rb.velocity = Vector2.zero;
 	}
 
 	public void LoseControl(float t) {
