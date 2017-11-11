@@ -22,7 +22,7 @@ public class EnemyCollision : MonoBehaviour {
 
 		Vector2 dir = position - enemyManager.rb.position;
 
-		RaycastHit2D hit = Physics2D.Raycast (enemyManager.rb.position, dir, dir.magnitude, enemyLayer);
+		RaycastHit2D hit = Physics2D.Raycast (enemyManager.rb.position + Vector2.up * enemyManager.sr.size.y / 2, dir, dir.magnitude, enemyLayer);
 
 		// return false if nothing is hit or player is hit
 

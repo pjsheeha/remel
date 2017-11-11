@@ -56,6 +56,7 @@
      <Compile Include="Assets\Scripts\Enemy Control\EnemyCollision.cs" />
      <Compile Include="Assets\Scripts\Enemy Control\EnemyDetection.cs" />
      <Compile Include="Assets\Scripts\Enemy Control\EnemyMovement.cs" />
+     <Compile Include="Assets\Scripts\Enemy Control\Eyeball\EyeballMovement.cs" />
      <Compile Include="Assets\Scripts\Managers\EnemyManager.cs" />
      <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
      <Compile Include="Assets\Scripts\Managers\LevelManager.cs" />
@@ -76,9 +77,11 @@
      <Compile Include="Assets\Scripts\Player Control\PlayerShooting.cs" />
      <Compile Include="Assets\Scripts\Player Control\Scratch\GravityChangeOnJump.cs" />
      <Compile Include="Assets\Scripts\Player Control\Scratch\JumpReplacement.cs" />
+     <Compile Include="Assets\Scripts\Utilities\Blocker.cs" />
      <Compile Include="Assets\Scripts\Utilities\DetectionMarker.cs" />
      <Compile Include="Assets\Scripts\Utilities\Footstep.cs" />
      <Compile Include="Assets\Scripts\Utilities\PersistentSingleton.cs" />
+     <Compile Include="Assets\Scripts\Utilities\Platform.cs" />
      <Compile Include="Assets\Scripts\Utilities\PlayerMarker.cs" />
      <Compile Include="Assets\Scripts\Utilities\Singleton.cs" />
  <Reference Include="UnityEngine.UI">
