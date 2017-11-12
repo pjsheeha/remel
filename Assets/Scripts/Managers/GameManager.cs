@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /**
  * Persistent Singleton game manager object. Will keep track of game data
@@ -15,7 +16,7 @@ public class GameManager : PersistentSingleton<GameManager> {
 	[SerializeField]
 	public GameObject positiveEnergyPrefab;
 
-	PlayerMovement playerMovement;
+	// PlayerMovement playerMovement;
 
 	protected void OnEnable() {
 		print("GameManager Enabled");
@@ -23,7 +24,7 @@ public class GameManager : PersistentSingleton<GameManager> {
 
 	// Use this for initialization
 	void Start () {
-		playerMovement = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerMovement> ();
+		// playerMovement = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerMovement> ();
 	}
 	
 	// Update is called once per frame
@@ -32,11 +33,19 @@ public class GameManager : PersistentSingleton<GameManager> {
 	}
 
 	void OnGUI() {
-		if (GUI.Button (new Rect (10, 10, 150, 30), "Reset")) {
+		/*if (GUI.Button (new Rect (10, 10, 150, 30), "Reset")) {
 			if (playerMovement != null) {
 				playerMovement.ResetPosition ();
 				SoundManager.instance.PlaySound ("reset");
 			}
-		}
+		}*/
+	}
+
+	public void GoToScene(string sceneName) {
+		SceneManager.LoadScene (sceneName);
+	}
+
+	public void ExitGame() {
+		Application.Quit ();
 	}
 }

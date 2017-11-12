@@ -84,6 +84,11 @@ public class PlayerManager : PersistentSingleton<PlayerManager> {
 		get;
 	}
 
+	public Key queueDisappearingKey {
+		set;
+		get;
+	}
+
 	private PlayerMovement playerMovement;
 	private PlayerGroundCheck groundCheck;
 	private PlayerEnergyCollector playerEnergy;
@@ -146,6 +151,14 @@ public class PlayerManager : PersistentSingleton<PlayerManager> {
 	public void LoseControl(float t) {
 		PauseMovement ();
 		StartCoroutine (RegainMovementInSeconds (t));
+	}
+
+	public void LoseControl() {
+		PauseMovement ();
+	}
+
+	public void KeyVanish() {
+		queueDisappearingKey.SetVisible (false);
 	}
 
 	// calls SetBool in the Animator component

@@ -26,9 +26,9 @@ public class LevelManager : Singleton<LevelManager> {
 
 	public bool CollectedAllEnergy {
 		get {
-			NegativeEnergyParticle[] negParticles = FindObjectsOfType<NegativeEnergyParticle> ();
+			Key[] keys = FindObjectsOfType<Key> ();
 
-			return negParticles.Length == 0;
+			return keys.Length == 0;
 
 		}
 	}
@@ -60,10 +60,10 @@ public class LevelManager : Singleton<LevelManager> {
 	public void CheckDoorUnlock() {
 
 		// unlocks door if no more negative energy particles
-		int particlesRemaining = GameObject.FindObjectsOfType<NegativeEnergyParticle> ().Length;
+		int particlesRemaining = GameObject.FindObjectsOfType<Key> ().Length;
 
-		foreach (NegativeEnergyParticle negpart in GameObject.FindObjectsOfType<NegativeEnergyParticle>()) {
-			if (negpart.Collected) {
+		foreach (Key key in GameObject.FindObjectsOfType<Key>()) {
+			if (key.Collected) {
 				particlesRemaining--;
 			}
 		}

@@ -25,10 +25,10 @@ public class PlayerCollision : MonoBehaviour {
 				
 			playerManager.LoseEnergy ();
 
-			NegativeEnergyParticle[] negEnergies = FindObjectsOfType<NegativeEnergyParticle> ();
+			Key[] keys = FindObjectsOfType<Key> ();
 
-			foreach (NegativeEnergyParticle negEnergy in negEnergies) {
-				negEnergy.Reset ();
+			foreach (Key key in keys) {
+				key.Reset ();
 			}
 
 			if (!em.EnableKnockback) {
