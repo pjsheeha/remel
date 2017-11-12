@@ -21,7 +21,7 @@ public class EnergyParticle : MonoBehaviour {
 		main.startSpeedMultiplier = Random.value * (startSpeedRange.y - startSpeedRange.x) + startSpeedRange.x;
 	}
 
-	public void Reset() {
+	public virtual void Reset() {
 		partSys.Play ();
 		GetComponent<CircleCollider2D> ().enabled = true;
 	}

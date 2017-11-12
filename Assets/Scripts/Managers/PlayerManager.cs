@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /**
  * This class organizes information from the other player classes into a single manager singleton.
@@ -155,6 +156,10 @@ public class PlayerManager : PersistentSingleton<PlayerManager> {
 	// calls SetTrigger in the Animator component
 	public void TriggerAnimation(string animationName) {
 		anim.SetTrigger (animationName);
+	}
+
+	public void TransitionScene() {
+		SceneManager.LoadSceneAsync (LevelGate.Instance.nextLevel, LoadSceneMode.Single);
 	}
 
 	protected IEnumerator RegainMovementInSeconds(float t) {

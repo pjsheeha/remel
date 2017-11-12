@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 /**
  * Manages level information (i.e. how much energy to move on)
  */
-
 public class LevelManager : Singleton<LevelManager> {
 
 	[SerializeField]
@@ -20,6 +19,10 @@ public class LevelManager : Singleton<LevelManager> {
 
 	[SerializeField]
 	Color backgroundColor = new Color (1f, 1f, 1f, 1f);
+
+	protected void Update() {
+		CheckDoorUnlock ();
+	}
 
 	public bool CollectedAllEnergy {
 		get {
@@ -52,6 +55,26 @@ public class LevelManager : Singleton<LevelManager> {
 		SetPlatformColors ();
 		SetBackgroundColor ();
 
+	}
+
+	public void CheckDoorUnlock() {
+
+		// unlocks door if no more negative energy particles
+		int particlesRemaining = GameObject.FindObjectsOfType<NegativeEnergyParticle> ().Length;
+
+		foreach (NegativeEnergyParticle negpart in GameObject.FindObjectsOfType<NegativeEnergyParticle>()) {
+			if (negpart.Collected) {
+				particlesRemaining--;
+			}
+		}
+
+		// print ("" + particlesRemaining + " particles remaining.");
+
+		if (particlesRemaining == 0) {
+			LevelGate.Instance.Unlock ();
+		} else {
+			LevelGate.Instance.Lock ();
+		}
 	}
 
 }

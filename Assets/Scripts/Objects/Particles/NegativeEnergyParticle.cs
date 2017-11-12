@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class NegativeEnergyParticle : EnergyParticle {
 
+	public bool Collected {
+		get {
+			return collected;
+		}
+	}
+
+	protected bool collected;
+
+	protected void Awake() {
+		collected = false;
+	}
+
 	// Use this for initialization
 	protected override void Start () {
 		base.Start ();
@@ -17,8 +29,16 @@ public class NegativeEnergyParticle : EnergyParticle {
 				pm.UpdatePlayerColor ();
 
 				partSys.Stop ();
+
 				GetComponent<CircleCollider2D> ().enabled = false;
+				collected = true;
 			}
 		}
+	}
+
+	public override void Reset() {
+		base.Reset ();
+
+		collected = false;
 	}
 }
