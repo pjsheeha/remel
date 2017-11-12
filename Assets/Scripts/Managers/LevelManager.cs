@@ -49,8 +49,9 @@ public class LevelManager : Singleton<LevelManager> {
 
 	protected void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
 
-		PlayerManager.Instance.ResumeMovement ();
+		// PlayerManager.Instance.ResumeMovement ();
 		PlayerManager.Instance.rb.position = spawnPosition;
+		PlayerManager.Instance.TriggerAnimation ("open");
 	
 		SetPlatformColors ();
 		SetBackgroundColor ();
