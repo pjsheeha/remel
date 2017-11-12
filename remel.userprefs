@@ -6,8 +6,8 @@
       <File FileName="Assets\Scripts\Player Control\PlayerMovement.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Player Control\PlayerEnergyCollector.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Managers\GameManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Enemy Control\EnemyMovement.cs" Line="72" Column="1" />
-      <File FileName="Assets\Scripts\Enemy Control\Anteater\AnteaterMovement.cs" Line="15" Column="18" />
+      <File FileName="Assets\Scripts\Enemy Control\EnemyMovement.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Enemy Control\Anteater\AnteaterMovement.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Managers\EnemyManager.cs" Line="119" Column="11" />
     </Files>
   </MonoDevelop.Ide.Workbench>
