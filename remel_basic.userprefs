@@ -1,9 +1,9 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Managers\EnemyManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player Control\PlayerGroundCheck.cs">
     <Files>
       <File FileName="Assets\Scripts\Player Control\PlayerMovement.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player Control\PlayerGroundCheck.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Player Control\PlayerGroundCheck.cs" Line="13" Column="4" />
       <File FileName="Assets\Scripts\Managers\GameManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Utilities\PersistentSingleton.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Utilities\Singleton.cs" Line="1" Column="1" />
@@ -17,7 +17,7 @@
       <File FileName="Assets\Scripts\Objects\Particles\PositiveEnergyParticle.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Objects\LevelGate.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Managers\LevelManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Managers\EnemyManager.cs" Line="113" Column="3" />
+      <File FileName="Assets\Scripts\Managers\EnemyManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Enemy Control\EnemyMovement.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Enemy Control\EnemyDetection.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Utilities\Footstep.cs" Line="1" Column="1" />

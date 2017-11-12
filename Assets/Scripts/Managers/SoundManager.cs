@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour {
+public class SoundManager : PersistentSingleton<SoundManager> {
 
 	public static SoundManager instance = null;
 
@@ -30,6 +30,8 @@ public class SoundManager : MonoBehaviour {
 	private Dictionary<string, AudioSource> sounds;
 
 	void Awake () {
+
+		base.Awake ();
 
 		if (instance == null) {
 			instance = this;

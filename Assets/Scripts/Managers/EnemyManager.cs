@@ -12,6 +12,14 @@ public class EnemyManager : MonoBehaviour {
 
 	[SerializeField]
 	protected bool spriteLeftByDefault = false;
+	[SerializeField]
+	protected bool enableKnockback = true;
+
+	public bool EnableKnockback {
+		get {
+			return this.enableKnockback;
+		}
+	}
 
 	public bool SpriteLeftByDefault {
 		get {

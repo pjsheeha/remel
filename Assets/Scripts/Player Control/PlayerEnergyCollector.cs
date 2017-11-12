@@ -52,6 +52,7 @@ public class PlayerEnergyCollector : MonoBehaviour {
 		if (playerEnergy < energyCapacity) {
 			playerEnergy++;
 			SoundManager.instance.PlaySound ("Energy Collect Sound");
+
 			return true;
 		}
 
