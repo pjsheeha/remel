@@ -94,7 +94,7 @@ public class EnemyManager : MonoBehaviour {
 		FollowTarget ();
 	}
 
-	private void Animate() {
+	protected virtual void Animate() {
 		SetAnim (TargetSpotted ? "chasing" : "walking", true);
 		SetAnim (TargetSpotted ? "walking" : "chasing", false);
 
@@ -136,6 +136,10 @@ public class EnemyManager : MonoBehaviour {
 
 	public void TriggerAnim(string animation) {
 		anim.SetTrigger (animation);
+	}
+
+	public void ResetTrigger(string animation) {
+		anim.ResetTrigger(animation);
 	}
 
 	public bool SameDetectionType(DetectionMarker dm) {

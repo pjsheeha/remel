@@ -18,6 +18,17 @@ public class PlayerCollision : MonoBehaviour {
 		
 	}
 
+	protected void OnTriggerEnter2D(Collider2D c) {
+		if (c.transform.GetComponent<Projectile> ()) {
+			playerManager.LoseEnergy ();
+			Key[] keys = FindObjectsOfType<Key> ();
+
+			foreach (Key key in keys) {
+				key.Reset ();
+			}
+		}
+	}
+
 	protected void OnCollisionEnter2D(Collision2D c) {
 		if (c.transform.GetComponent<EnemyManager> ()) {
 
