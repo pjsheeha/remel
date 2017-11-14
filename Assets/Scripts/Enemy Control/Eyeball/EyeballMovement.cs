@@ -13,13 +13,13 @@ public class EyeballMovement : EnemyMovement {
     // Update is called once per frame
     protected override void Update()
     {
-        if (facingPlayer()) {
+        /*if (facingPlayer()) {
             moveSpeed = 8f;
         }
         else
         {
             moveSpeed = 6f;
-        }
+        }*/
         base.Update();
     }
 
