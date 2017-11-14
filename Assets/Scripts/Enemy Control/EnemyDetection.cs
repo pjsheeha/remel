@@ -67,10 +67,6 @@ public class EnemyDetection : MonoBehaviour {
 			}
 		}
 
-		if (GetComponent<EyeballMovement> ()) {
-			print (Target);
-		}
-
 		overlaps = Detect ();
 
 		if (!loseTargetWhenOOR) {
@@ -97,8 +93,9 @@ public class EnemyDetection : MonoBehaviour {
 			return Physics2D.OverlapBoxAll (enemyManager.rb.position, new Vector2 (detectionSize, enemyManager.sr.size.y), 0f);
 		} else {
 			Vector2 enemyDirection = (Vector2.right * (enemyManager.sr.flipX ? -1f : 1f)) * (enemyManager.SpriteLeftByDefault ? -1f : 1f);
+
 			return Physics2D.OverlapBoxAll(
-				enemyManager.rb.position + Vector2.up * enemyManager.sr.size.y / 2f + enemyDirection * detectionSize / 2f,
+				enemyManager.rb.position + enemyDirection * detectionSize / 2f,
 				new Vector2(detectionSize, enemyManager.sr.size.y),
 				0f
 			);

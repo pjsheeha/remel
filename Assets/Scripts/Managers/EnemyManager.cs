@@ -91,6 +91,7 @@ public class EnemyManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Animate ();
+		FollowTarget ();
 	}
 
 	private void Animate() {
@@ -103,6 +104,10 @@ public class EnemyManager : MonoBehaviour {
 	}
 
 	public void FollowTarget() {
+		if (!Target) {
+			return;
+		}
+
 		Destination = Target.position;
 	}
 
