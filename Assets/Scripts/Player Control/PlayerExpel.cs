@@ -38,7 +38,7 @@ public class PlayerExpel : MonoBehaviour {
 			Rigidbody2D posEnergyRB = (
 				Instantiate<GameObject> (
 					GameManager.Instance.positiveEnergyPrefab,
-					playerManager.mouth.position,
+					Vector2.zero,
 					Quaternion.Euler(new Vector3(0f, 0f, angle))
 				)
 			).GetComponent<Rigidbody2D> ();

@@ -48,9 +48,12 @@ public class PlayerCollision : MonoBehaviour {
 
 			// reflect player's speed
 			Vector2 reflectDirection = (playerManager.rb.position - em.rb.position).normalized; // rigidbodies for Vector2 positions
-			playerManager.rb.velocity = reflectDirection * playerManager.Knockback;
+			// playerManager.rb.velocity = reflectDirection * playerManager.Knockback;
+			playerManager.rb.AddForce(reflectDirection * playerManager.Knockback, ForceMode2D.Impulse);
 
-			playerManager.LoseControl (playerManager.KnockbackTime);
+			playerManager.LoseControl ();
+			playerManager.SetInvincible ();
+			playerManager.TriggerAnimation ("hit");
 		}
 	}
 }

@@ -10,18 +10,11 @@ using UnityEngine.SceneManagement;
 public class PlayerManager : PersistentSingleton<PlayerManager> {
 
 	[SerializeField]
-	private Transform t_mouth;
+	protected float invincibilityDuration = 2f;
 	[SerializeField]
 	protected float knockback = 8f;
 	[SerializeField]
 	protected float knockbackTime = 0.4f;
-
-	// player's mouth transform is read-only - can't be tampered with outside
-	public Transform mouth {
-		get {
-			return t_mouth;
-		}
-	}
 
 	// returns isGrounded from PlayerGroundCheck component
 	public bool isGrounded {
@@ -95,6 +88,8 @@ public class PlayerManager : PersistentSingleton<PlayerManager> {
 
 	private Animator anim;
 
+	private float invincibleTime = 0f;
+
 	// Use this for initialization
 	protected override void Awake () {
 
@@ -107,6 +102,15 @@ public class PlayerManager : PersistentSingleton<PlayerManager> {
 		rb = GetComponent<Rigidbody2D> ();
 		spriteRenderer = GetComponent<SpriteRenderer> ();
 		useMovement = true;
+	}
+
+	protected virtual void Update() {
+		invincibleTime -= Time.deltaTime;
+
+		if (invincibleTime <= 0f) {
+			gameObject.layer = LayerMask.NameToLayer ("Player");
+			invincibleTime = 0f;
+		}
 	}
 
 	// called whenever something happens to energy level
@@ -171,6 +175,12 @@ public class PlayerManager : PersistentSingleton<PlayerManager> {
 		anim.SetTrigger (animationName);
 	}
 
+	public void SetInvincible() {
+		invincibleTime = invincibilityDuration;
+		gameObject.layer = LayerMask.NameToLayer ("Invincible");
+		StartCoroutine (Flash (0.125f));
+	}
+
 	public void TransitionScene() {
 		SceneManager.LoadSceneAsync (LevelGate.Instance.nextLevel, LoadSceneMode.Single);
 	}
@@ -178,5 +188,16 @@ public class PlayerManager : PersistentSingleton<PlayerManager> {
 	protected IEnumerator RegainMovementInSeconds(float t) {
 		yield return new WaitForSeconds (t);
 		ResumeMovement ();
+	}
+
+	protected IEnumerator Flash(float time) {
+		yield return new WaitForSeconds (time);
+
+		if (invincibleTime > 0f) {
+			spriteRenderer.enabled = !spriteRenderer.enabled;
+			StartCoroutine (Flash (time));
+		} else {
+			spriteRenderer.enabled = true;
+		}
 	}
 }
