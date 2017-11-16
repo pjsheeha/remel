@@ -52,7 +52,7 @@ public class PlayerCollision : MonoBehaviour {
 			playerManager.rb.AddForce(reflectDirection * playerManager.Knockback, ForceMode2D.Impulse);
 
 			playerManager.LoseControl ();
-			playerManager.SetInvincible ();
+			playerManager.SetInvincible (0.125f);
 			playerManager.TriggerAnimation ("hit");
 		}
 	}

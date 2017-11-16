@@ -108,7 +108,7 @@ public class PlayerManager : PersistentSingleton<PlayerManager> {
 		invincibleTime -= Time.deltaTime;
 
 		if (invincibleTime <= 0f) {
-			gameObject.layer = LayerMask.NameToLayer ("Player");
+			RegainMortality ();
 			invincibleTime = 0f;
 		}
 	}
@@ -178,7 +178,20 @@ public class PlayerManager : PersistentSingleton<PlayerManager> {
 	public void SetInvincible() {
 		invincibleTime = invincibilityDuration;
 		gameObject.layer = LayerMask.NameToLayer ("Invincible");
-		StartCoroutine (Flash (0.125f));
+	}
+
+	public void SetInvincible(bool forever) {
+		gameObject.layer = LayerMask.NameToLayer ("Invincible");
+	}
+
+	public void SetInvincible(float flashInterval) {
+		invincibleTime = invincibilityDuration;
+		gameObject.layer = LayerMask.NameToLayer ("Invincible");
+		StartCoroutine (Flash (flashInterval));
+	}
+
+	public void RegainMortality() {
+		gameObject.layer = LayerMask.NameToLayer ("Player");
 	}
 
 	public void TransitionScene() {

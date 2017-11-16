@@ -16,6 +16,9 @@ public class PlayerGroundCheck : MonoBehaviour {
 	[SerializeField]
 	private Transform groundCheck;
 
+	[SerializeField]
+	protected LayerMask[] ignoreLayers;
+
 	public Vector3 verticalVelocitySeries;
 
 	private PlayerManager playerManager;
@@ -26,7 +29,14 @@ public class PlayerGroundCheck : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		playerManager = GetComponent<PlayerManager> ();
-		layerMask = ~(1 << LayerMask.NameToLayer ("Player"));
+
+		layerMask = 0;
+
+		foreach (LayerMask lm in ignoreLayers) {
+			layerMask = layerMask | lm;
+		}
+
+		layerMask = ~layerMask;
 
 		verticalVelocitySeries = Vector3.zero;
 	}
@@ -52,7 +62,7 @@ public class PlayerGroundCheck : MonoBehaviour {
 	}
 
 	private void GroundCheckTwoPointOh() {
-		Collider2D c = Physics2D.OverlapBox (groundCheck.position, new Vector2 (playerManager.spriteRenderer.size.x, 0f), 0f, layerMask);
+		Collider2D c = Physics2D.OverlapBox (groundCheck.position, new Vector2 (playerManager.spriteRenderer.size.x, 1e-5f), 0f, layerMask);
 
 		isGrounded = c != null && !c.transform.GetComponent<Collider2D>().isTrigger;
 	}

@@ -26,6 +26,7 @@ public class LevelGate : Singleton<LevelGate> {
 			pmAdjustedPosition.x = transform.position.x;
 			pm.rb.position = pmAdjustedPosition;
 			pm.PauseMovement ();
+			pm.SetInvincible ();
 			
 			print ("Change Level");
 

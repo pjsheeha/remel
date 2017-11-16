@@ -65,17 +65,13 @@ public class PlayerMovement : MonoBehaviour {
 
 			playerManager.SetAnimation ("grounded", false);
 
-			if (playerManager.isGrounded) {
-				playerManager.TriggerAnimation ("jump");
-				SoundManager.instance.PlaySound ("jump");
-			} else {
-				playerManager.TriggerAnimation ("air_jump");
-				SoundManager.instance.PlaySound ("jump");
-			}
+			playerManager.TriggerAnimation ("jump");
+			SoundManager.instance.PlaySound ("jump");
 		}
 	}
 
 	public void ResetJumps() {
+		print ("jumps reset");
 		remainingJumps = numJumps;
 	}
 
