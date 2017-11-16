@@ -52,6 +52,7 @@ public class LevelManager : Singleton<LevelManager> {
 		// PlayerManager.Instance.ResumeMovement ();
 		PlayerManager.Instance.rb.position = spawnPosition;
 		PlayerManager.Instance.TriggerAnimation ("open");
+		PlayerManager.Instance.ResetTrigger ("exit");
 		PlayerManager.Instance.SetInvincible(true);
 	
 		SetPlatformColors ();

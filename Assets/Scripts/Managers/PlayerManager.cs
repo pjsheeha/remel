@@ -175,6 +175,10 @@ public class PlayerManager : PersistentSingleton<PlayerManager> {
 		anim.SetTrigger (animationName);
 	}
 
+	public void ResetTrigger(string animationName) {
+		anim.ResetTrigger (animationName);
+	}
+
 	public void SetInvincible() {
 		invincibleTime = invincibilityDuration;
 		gameObject.layer = LayerMask.NameToLayer ("Invincible");

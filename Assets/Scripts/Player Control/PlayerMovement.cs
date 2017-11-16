@@ -71,7 +71,6 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	public void ResetJumps() {
-		print ("jumps reset");
 		remainingJumps = numJumps;
 	}
 
