@@ -32,7 +32,7 @@ public class ShootingEnemy : MonoBehaviour {
 	public void Shoot() {
 		Vector2 enemyDirection = Vector2.right * (enemyManager.sr.flipX ? -1f : 1f) * (enemyManager.SpriteLeftByDefault ? 1f : -1f);
 
-		GameObject laserObj = Instantiate<GameObject> (
+		Instantiate<GameObject> (
 			laser, 
 			firePoint.position, 
 			Quaternion.Euler(new Vector3(0f, 0f, enemyDirection.x == 1f ? 0f : 180f))
