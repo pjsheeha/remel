@@ -26,6 +26,16 @@ public class PlayerCollision : MonoBehaviour {
 			foreach (Key key in keys) {
 				key.Reset ();
 			}
+
+			Rigidbody2D projectileRB = c.transform.GetComponent<Rigidbody2D> ();
+
+			Vector2 playerMomentum = playerManager.rb.velocity * playerManager.rb.mass;
+			playerMomentum += projectileRB.velocity * projectileRB.mass;
+
+			playerManager.rb.velocity = playerMomentum / playerManager.rb.mass;
+			playerManager.SetInvincible (0.125f);
+			playerManager.LoseControl ();
+			playerManager.TriggerAnimation ("hit");
 		}
 	}
 
