@@ -18,7 +18,9 @@ public class EnemyCollision : MonoBehaviour {
 
 	public bool DetectionCollision(Vector2 position) {
 
-		int enemyLayer = ~(1 << LayerMask.NameToLayer ("Enemy") | 1 << LayerMask.NameToLayer ("Gate"));
+		int enemyLayer = 1 << LayerMask.NameToLayer ("Enemy") | 1 << LayerMask.NameToLayer ("Gate");
+
+		enemyLayer = ~(enemyLayer);
 
 		Vector2 dir = position - enemyManager.rb.position;
 
