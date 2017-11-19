@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Key : MonoBehaviour {
 
+	public static float KEY_RETURN_SPEED = 5f;
+
 	protected SpriteRenderer sr;
 	protected bool collected;
+
+	private Vector3 startPosition;
 
 	public bool Collected {
 		get {
@@ -16,11 +20,16 @@ public class Key : MonoBehaviour {
 	void Awake() {
 		collected = false;
 		sr = GetComponent<SpriteRenderer> ();
+		startPosition = transform.position;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		transform.position = Vector2.Lerp (transform.position, startPosition, Time.deltaTime * KEY_RETURN_SPEED);
+
+		if (sr.enabled && (transform.position - startPosition).magnitude <= 0.1f) {
+			SetCollectible (true);
+		}
 	}
 
 	void OnTriggerEnter2D(Collider2D c) {
@@ -33,7 +42,6 @@ public class Key : MonoBehaviour {
 
 				// SetVisible (false);
 				pm.queueDisappearingKey = this;
-				collected = true;
 			}
 		}
 	}
@@ -41,11 +49,18 @@ public class Key : MonoBehaviour {
 	public void Reset() {
 		SetVisible (true);
 
-		collected = false;
+		if (collected) {
+			transform.position = PlayerManager.Instance.rb.position;
+		}
 	}
 
 	public void SetVisible(bool v) {
 		sr.enabled = v;
+	}
+
+	public void SetCollectible(bool v) {
 		GetComponent<Collider2D> ().enabled = v;
+
+		collected = !v;
 	}
 }

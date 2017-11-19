@@ -136,6 +136,12 @@ public class PlayerManager : PersistentSingleton<PlayerManager> {
 		UpdatePlayerColor ();
 	}
 
+	public void Respawn() {
+		rb.position = LevelManager.Instance.spawnPosition;
+		rb.velocity = Vector2.zero;
+		TriggerAnimation ("open");
+	}
+
 	// resets the number of jumps in PlayerMovement component
 	public void ResetJumps() {
 		playerMovement.ResetJumps ();
@@ -163,6 +169,7 @@ public class PlayerManager : PersistentSingleton<PlayerManager> {
 
 	public void KeyVanish() {
 		queueDisappearingKey.SetVisible (false);
+		queueDisappearingKey.SetCollectible (false);
 	}
 
 	// calls SetBool in the Animator component
