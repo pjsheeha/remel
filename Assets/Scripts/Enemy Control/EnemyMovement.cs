@@ -19,7 +19,7 @@ public class EnemyMovement : MonoBehaviour {
 	protected Vector2 randomWalkDistance = new Vector2 (1f, 2f);
 
 	public bool isMoving {
-		private set;
+		protected set;
 		get;
 	}
 

@@ -10,14 +10,18 @@ public class Enemy1Manager : EnemyManager {
     {
         h_Input = Input.GetAxis("Horizontal");
 
-        base.Animate();
+        // base.Animate();
         bool isMoving = h_Input != 0f;
         SetAnim("walking", isMoving);
         SetAnim("moving", isMoving);
 
         //sr.flipX = enemyMovement.Displacement.x > 0f ? (spriteLeftByDefault ? true : false) : (spriteLeftByDefault ? false : true);
         //sr.flipX = h_Input != 0f ? (h_Input > 0f ? false : true) : sr.flipX;
-        sr.flipX = h_Input != 0f ? (h_Input > 0f ? false : true) : (h_Input > 0f ? true : false);
+
+		if (h_Input != 0f) {
+			sr.flipX = SpriteLeftByDefault ? (h_Input > 0f ? false : true) : (h_Input < 0f ? false : true);
+		}
+        
         /*
         if (Input.GetKeyDown(KeyCode.UpArrow) && movement.remainingJumps > 0)
         {

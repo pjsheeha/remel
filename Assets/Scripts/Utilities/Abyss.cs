@@ -19,5 +19,11 @@ public class Abyss : MonoBehaviour {
 			PlayerManager pm = c.transform.GetComponent<PlayerManager> ();
 			pm.Respawn ();
 		}
+
+		if (c.transform.GetComponent<EnemyManager> ()) {
+			EnemyManager em = c.transform.GetComponent<EnemyManager> ();
+			em.Respawn ();
+		}
+
 	}
 }

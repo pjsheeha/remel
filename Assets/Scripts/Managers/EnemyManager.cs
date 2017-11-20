@@ -73,6 +73,7 @@ public class EnemyManager : MonoBehaviour {
 
 	public Action onDetection;
 
+	protected Vector2 spawnPosition;
 	protected EnemyDetection enemyDetection;
 	protected EnemyMovement enemyMovement;
 	protected EnemyCollision enemyCollision;
@@ -82,6 +83,7 @@ public class EnemyManager : MonoBehaviour {
 		anim = GetComponent<Animator> ();
 		rb = GetComponent<Rigidbody2D> ();
 		sr = GetComponent<SpriteRenderer> ();
+		spawnPosition = rb.position;
 
 		enemyDetection = GetComponent<EnemyDetection> ();
 		enemyMovement = GetComponent<EnemyMovement> ();
@@ -150,5 +152,10 @@ public class EnemyManager : MonoBehaviour {
 		if (onDetection != null) {
 			onDetection ();
 		}
+	}
+
+	public void Respawn() {
+		rb.position = spawnPosition;
+		rb.velocity = Vector2.zero;
 	}
 }
