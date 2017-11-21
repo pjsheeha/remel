@@ -32,6 +32,10 @@ public class EnemyCollision : MonoBehaviour {
 			return false;
 		}
 
+		if (enemyManager.Target != null) {
+			Destroy (enemyManager.Target.gameObject);
+		}
+
 		return true;
 	}
 }

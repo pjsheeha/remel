@@ -45,7 +45,6 @@ public class PlayerCollision : MonoBehaviour {
 			EnemyManager em = c.transform.GetComponent<EnemyManager> ();
 				
 			playerManager.LoseEnergy ();
-			playerManager.SetInvincible (0.125f);
 
 			Key[] keys = FindObjectsOfType<Key> ();
 
@@ -63,6 +62,7 @@ public class PlayerCollision : MonoBehaviour {
 			playerManager.rb.AddForce(reflectDirection * playerManager.Knockback, ForceMode2D.Impulse);
 
 			playerManager.LoseControl ();
+			playerManager.SetInvincible (0.125f);
 			playerManager.TriggerAnimation ("hit");
 		}
 	}

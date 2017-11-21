@@ -51,9 +51,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\GameUI.cs" />
-     <Compile Include="Assets\MenuUI.cs" />
-     <Compile Include="Assets\PermanentEventSystem.cs" />
      <Compile Include="Assets\Scripts\Enemy Control\Anteater\AnteaterMovement.cs" />
      <Compile Include="Assets\Scripts\Enemy Control\Blob\Blob.cs" />
      <Compile Include="Assets\Scripts\Enemy Control\Enemy1Movement.cs" />
@@ -92,6 +89,9 @@
      <Compile Include="Assets\Scripts\Utilities\Blocker.cs" />
      <Compile Include="Assets\Scripts\Utilities\DetectionMarker.cs" />
      <Compile Include="Assets\Scripts\Utilities\Footstep.cs" />
+     <Compile Include="Assets\Scripts\Utilities\GameUI.cs" />
+     <Compile Include="Assets\Scripts\Utilities\MenuUI.cs" />
+     <Compile Include="Assets\Scripts\Utilities\PermanentEventSystem.cs" />
      <Compile Include="Assets\Scripts\Utilities\PersistentSingleton.cs" />
      <Compile Include="Assets\Scripts\Utilities\Platform.cs" />
      <Compile Include="Assets\Scripts\Utilities\PlayerMarker.cs" />
