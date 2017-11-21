@@ -23,6 +23,12 @@ public class PlayerManager : PersistentSingleton<PlayerManager> {
 		}
 	}
 
+	public bool Invincible {
+		get {
+			return this.invincibleTime > 0f;
+		}
+	}
+
 	public bool isMoving {
 		get {
 			return playerMovement.isMoving;
@@ -196,9 +202,13 @@ public class PlayerManager : PersistentSingleton<PlayerManager> {
 	}
 
 	public void SetInvincible(float flashInterval) {
+
+		if (invincibleTime == 0f) {
+			StartCoroutine (Flash (flashInterval));
+		}
+
 		invincibleTime = invincibilityDuration;
 		gameObject.layer = LayerMask.NameToLayer ("Invincible");
-		StartCoroutine (Flash (flashInterval));
 	}
 
 	public void RegainMortality() {
