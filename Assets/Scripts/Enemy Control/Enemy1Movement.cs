@@ -11,6 +11,8 @@ public class Enemy1Movement : EnemyMovement
     private Vector2 newPosition;
     public bool isGrounded;
 
+	public float directionMultiplier = 1f;
+
     // Use this for initialization
     protected override void Start()
     {
@@ -38,7 +40,7 @@ public class Enemy1Movement : EnemyMovement
 
         // use rigidbody position instead of transform to eliminate jitter when colliding with walls
         //enemyManager.rb.position += Vector2.right * h_Input * Time.deltaTime * moveSpeed;
-        Vector2 toNewPosition = Vector2.left * h_Input * Time.deltaTime * moveSpeed;
+		Vector2 toNewPosition = Vector2.left * h_Input * Time.deltaTime * moveSpeed * directionMultiplier;
         newPosition = enemyManager.rb.position + toNewPosition;
 
         enemyManager.rb.position += toNewPosition;
