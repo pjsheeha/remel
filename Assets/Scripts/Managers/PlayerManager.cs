@@ -144,6 +144,8 @@ public class PlayerManager : PersistentSingleton<PlayerManager> {
 
 	public void Respawn() {
 		rb.position = LevelManager.Instance.spawnPosition;
+		SoundManager.instance.PlaySound ("reset");
+		SoundManager.instance.PlaySound ("breath");
 		rb.velocity = Vector2.zero;
 		TriggerAnimation ("open");
 	}
@@ -194,11 +196,11 @@ public class PlayerManager : PersistentSingleton<PlayerManager> {
 
 	public void SetInvincible() {
 		invincibleTime = invincibilityDuration;
-		gameObject.layer = LayerMask.NameToLayer ("Invincible");
+		//gameObject.layer = LayerMask.NameToLayer ("Invincible");
 	}
 
 	public void SetInvincible(bool forever) {
-		gameObject.layer = LayerMask.NameToLayer ("Invincible");
+		//gameObject.layer = LayerMask.NameToLayer ("Invincible");
 	}
 
 	public void SetInvincible(float flashInterval) {
@@ -208,7 +210,8 @@ public class PlayerManager : PersistentSingleton<PlayerManager> {
 		}
 
 		invincibleTime = invincibilityDuration;
-		gameObject.layer = LayerMask.NameToLayer ("Invincible");
+		//gameObject.layer = LayerMask.NameToLayer ("Invincible");
+		SoundManager.instance.PlaySound ("squeak");
 	}
 
 	public void RegainMortality() {

@@ -1,0 +1,20 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Managers\LevelManager.cs">
+    <Files>
+      <File FileName="Assets\Scripts\Managers\LevelManager.cs" Line="88" Column="46" />
+      <File FileName="Assets\Scripts\Managers\SoundManager.cs" Line="92" Column="33" />
+      <File FileName="Assets\Scripts\Managers\PlayerManager.cs" Line="222" Column="54" />
+      <File FileName="Assets\Scripts\Managers\GameManager.cs" Line="26" Column="17" />
+      <File FileName="Assets\Scripts\Player Control\PlayerMovement.cs" Line="90" Column="2" />
+      <File FileName="Assets\Scripts\Player Control\PlayerFootsteps.cs" Line="41" Column="5" />
+      <File FileName="Assets\Scripts\Enemy Control\Shooting Enemy\ShootingEnemy.cs" Line="7" Column="18" />
+      <File FileName="Assets\Scripts\Player Control\PlayerEnergyCollector.cs" Line="56" Column="16" />
+      <File FileName="Assets\Scripts\Objects\LevelGate.cs" Line="30" Column="41" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

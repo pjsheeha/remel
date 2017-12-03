@@ -22,7 +22,6 @@ public class ShootingEnemy : MonoBehaviour {
 
 		if (h_Input != 0f) {
 			enemyManager.sr.flipX = enemyManager.SpriteLeftByDefault ? (h_Input > 0f ? false : true) : (h_Input > 0f ? true : false);
-
 			enemyManager.TriggerAnim ("fire");
 		} else {
 			enemyManager.ResetTrigger ("fire");
@@ -31,6 +30,7 @@ public class ShootingEnemy : MonoBehaviour {
 
 	public void Shoot() {
 		Vector2 enemyDirection = Vector2.right * (enemyManager.sr.flipX ? -1f : 1f) * (enemyManager.SpriteLeftByDefault ? 1f : -1f);
+		SoundManager.instance.PlaySound ("pop");
 
 		Instantiate<GameObject> (
 			laser, 

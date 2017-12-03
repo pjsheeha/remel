@@ -14,7 +14,7 @@ public class PlayerFootsteps : MonoBehaviour {
 	private PlayerManager playerManager;
 
 	private float footstepTimer;
-
+	private int timer=0;
 	// Use this for initialization
 	void Start () {
 		playerManager = GetComponent<PlayerManager> ();
@@ -22,6 +22,7 @@ public class PlayerFootsteps : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		timer += 1;
 		SpawnFootsteps ();
 	}
 
@@ -41,6 +42,8 @@ public class PlayerFootsteps : MonoBehaviour {
 				foreach (Collider2D c in cs) {
 					if (c.gameObject != footstep && c.GetComponent<Footstep> ()) {
 						Destroy (footstep);
+
+
 					}
 				}
 

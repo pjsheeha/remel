@@ -22,11 +22,28 @@ public class SoundManager : PersistentSingleton<SoundManager> {
 	public AudioClip JumpAudio;
 	private AudioSource jumpAudio;
 
+	public AudioClip JumpAudio2;
+	private AudioSource jumpAudio2;
+
+	public AudioClip JumpAudio3;
+	private AudioSource jumpAudio3;
 	public AudioClip ResetAudio;
 	private AudioSource resetAudio;
 
+	public AudioClip BreathAudio;
+	private AudioSource breathAudio;
 
+	public AudioClip SqueakAudio;
+	private AudioSource squeakAudio;
 
+	public AudioClip CelebAudio;
+	private AudioSource celebAudio;
+
+	public AudioClip TriAudio;
+	private AudioSource triAudio;
+
+	public AudioClip PopAudio;
+	private AudioSource popAudio;
 	private Dictionary<string, AudioSource> sounds;
 
 	void Awake () {
@@ -55,10 +72,17 @@ public class SoundManager : PersistentSingleton<SoundManager> {
 		deathAudio.clip = DeathAudio;
 		sounds ["Death Sound"] = deathAudio;
 
+		jumpAudio2 = gameObject.AddComponent<AudioSource> ();
+		jumpAudio2.clip = JumpAudio2;
+		sounds ["jump2"] = jumpAudio2;
+
 		jumpAudio = gameObject.AddComponent<AudioSource> ();
 		jumpAudio.clip = JumpAudio;
 		sounds ["jump"] = jumpAudio;
 
+		jumpAudio3 = gameObject.AddComponent<AudioSource> ();
+		jumpAudio3.clip = JumpAudio3;
+		sounds ["jump3"] = jumpAudio3;
 		collectAudio = gameObject.AddComponent<AudioSource> ();
 		collectAudio.clip = CrystalCollectAudio;
 		sounds ["Energy Collect Sound"] = collectAudio;
@@ -66,6 +90,24 @@ public class SoundManager : PersistentSingleton<SoundManager> {
 		resetAudio = gameObject.AddComponent<AudioSource> ();
 		resetAudio.clip = ResetAudio;
 		sounds ["reset"] = resetAudio;
+
+		breathAudio = gameObject.AddComponent<AudioSource> ();
+		breathAudio.clip = BreathAudio;
+		sounds ["breath"] = breathAudio;
+
+		squeakAudio = gameObject.AddComponent<AudioSource> ();
+		squeakAudio.clip = SqueakAudio;
+		sounds ["squeak"] = squeakAudio;
+
+		triAudio = gameObject.AddComponent<AudioSource> ();
+		triAudio.clip = TriAudio;
+		sounds ["tri"] = triAudio;
+		celebAudio = gameObject.AddComponent<AudioSource> ();
+		celebAudio.clip = CelebAudio;
+		sounds ["celeb"] = celebAudio;
+		popAudio = gameObject.AddComponent<AudioSource> ();
+		popAudio.clip = PopAudio;
+		sounds ["pop"] = popAudio;
 	}
 
 

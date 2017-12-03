@@ -22,7 +22,7 @@ public class Abyss : MonoBehaviour {
 
 		if (c.transform.GetComponent<EnemyManager> ()) {
 			EnemyManager em = c.transform.GetComponent<EnemyManager> ();
-			// em.Respawn ();
+			em.Respawn ();
 		}
 
 	}

@@ -31,6 +31,7 @@ public class LevelManager : Singleton<LevelManager> {
 			return keys.Length == 0;
 
 		}
+
 	}
 
 	private void SetPlatformColors() {
@@ -56,6 +57,8 @@ public class LevelManager : Singleton<LevelManager> {
 		// PlayerManager.Instance.ResumeMovement ();
 		PlayerManager.Instance.rb.position = spawnPosition;
 		PlayerManager.Instance.TriggerAnimation ("open");
+		SoundManager.instance.PlaySound ("reset");
+		SoundManager.instance.PlaySound ("breath");
 		PlayerManager.Instance.ResetTrigger ("exit");
 		PlayerManager.Instance.SetInvincible(true);
 	
@@ -78,8 +81,11 @@ public class LevelManager : Singleton<LevelManager> {
 		// print ("" + particlesRemaining + " particles remaining.");
 
 		if (particlesRemaining == 0) {
+
 			LevelGate.Instance.Unlock ();
+
 		} else {
+			SoundManager.instance.PlaySound ("celeb");
 			LevelGate.Instance.Lock ();
 		}
 	}

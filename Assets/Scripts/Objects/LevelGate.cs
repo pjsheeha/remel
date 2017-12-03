@@ -27,7 +27,8 @@ public class LevelGate : Singleton<LevelGate> {
 			pm.rb.position = pmAdjustedPosition;
 			pm.PauseMovement ();
 			pm.SetInvincible ();
-			
+			SoundManager.instance.PlaySound ("tri");
+
 			print ("Change Level");
 
 			// SceneManager.LoadSceneAsync (nextLevel, LoadSceneMode.Single);

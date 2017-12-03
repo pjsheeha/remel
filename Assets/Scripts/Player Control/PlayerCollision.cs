@@ -39,12 +39,7 @@ public class PlayerCollision : MonoBehaviour {
 		}
 	}
 
-	protected void OnCollisionStay2D(Collision2D c) {
-
-		if (playerManager.Invincible) {
-			return;
-		}
-
+	protected void OnCollisionEnter2D(Collision2D c) {
 		if (c.transform.GetComponent<EnemyManager> ()) {
 
 			EnemyManager em = c.transform.GetComponent<EnemyManager> ();
