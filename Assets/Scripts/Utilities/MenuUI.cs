@@ -10,15 +10,19 @@ public class MenuUI : MonoBehaviour {
 	CanvasGroup mainMenuPanel;
 	[SerializeField]
 	CanvasGroup levelSelectPanel;
+	[SerializeField]
+	GameObject titlePanel;
 
-	// Use this for initialization
-	void Start () {
-		
+	private Animator anim;
+
+	void Awake () {
+		anim = titlePanel.GetComponent<Animator> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		CheckMouseClick();
+		CheckSkipScene ();
 	}
 
 	public void ShowMainMenu() {
@@ -41,6 +45,18 @@ public class MenuUI : MonoBehaviour {
 		foreach (CanvasGroup cg in cgs) {
 			GameObject o = cg.gameObject;
 			o.SetActive (false);
+		}
+	}
+
+	private void CheckMouseClick() {
+		if (Input.anyKeyDown) {
+			anim.SetTrigger ("transition");
+		}
+	}
+
+	private void CheckSkipScene() {
+		if (anim.GetCurrentAnimatorStateInfo (0).IsName ("transition") && Input.GetKeyDown (KeyCode.Escape)) {
+			GameManager.Instance.GoToScene (GameManager.FIRST_LEVEL_SCENE_NAME);	
 		}
 	}
 }

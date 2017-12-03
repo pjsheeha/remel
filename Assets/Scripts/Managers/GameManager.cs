@@ -9,6 +9,8 @@ using UnityEngine.SceneManagement;
  */
 public class GameManager : PersistentSingleton<GameManager> {
 
+	public static string FIRST_LEVEL_SCENE_NAME = "rlevel1";
+
 	[SerializeField]
 	public GameObject projectilePrefab;
 	[SerializeField]
