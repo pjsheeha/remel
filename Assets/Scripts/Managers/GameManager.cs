@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
  */
 public class GameManager : PersistentSingleton<GameManager> {
 
+	public static string TITLE_SCENE_NAME = "title";
 	public static string FIRST_LEVEL_SCENE_NAME = "rlevel1";
 
 	[SerializeField]
