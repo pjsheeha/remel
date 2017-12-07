@@ -14,7 +14,7 @@ public class MenuUI : MonoBehaviour {
 	GameObject titlePanel;
 
 	private Animator anim;
-
+	private bool playing = false;
 	void Awake () {
 		anim = titlePanel.GetComponent<Animator> ();
 	}
@@ -49,8 +49,10 @@ public class MenuUI : MonoBehaviour {
 	}
 
 	private void CheckMouseClick() {
-		if (Input.anyKeyDown) {
+		if (Input.anyKeyDown && playing == false) {
 			anim.SetTrigger ("transition");
+			playing = true;
+			SoundManager.instance.PlaySound ("open");
 		}
 	}
 

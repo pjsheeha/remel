@@ -6,7 +6,7 @@ public class Ending : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		SoundManager.instance.PlaySound ("end");
 	}
 	
 	// Update is called once per frame

@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : PersistentSingleton<GameManager> {
 
 	public static string TITLE_SCENE_NAME = "title";
-	public static string FIRST_LEVEL_SCENE_NAME = "rlevel1";
+	public static string FIRST_LEVEL_SCENE_NAME = "rlevel0";
 
 	[SerializeField]
 	public GameObject projectilePrefab;
@@ -19,7 +19,7 @@ public class GameManager : PersistentSingleton<GameManager> {
 	[SerializeField]
 	public GameObject positiveEnergyPrefab;
 
-	// PlayerMovement playerMovement;
+	PlayerMovement playerMovement;
 
 	protected void OnEnable() {
 		print("GameManager Enabled");
@@ -27,22 +27,20 @@ public class GameManager : PersistentSingleton<GameManager> {
 
 	// Use this for initialization
 	void Start () {
-		// playerMovement = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerMovement> ();
+		 playerMovement = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerMovement> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (Input.GetKeyDown(KeyCode.R)) {
+
+			playerMovement.ResetPosition ();
+			SoundManager.instance.PlaySound ("reset");
+		}
 	}
 
-	void OnGUI() {
-		/*if (GUI.Button (new Rect (10, 10, 150, 30), "Reset")) {
-			if (playerMovement != null) {
-				playerMovement.ResetPosition ();
-				SoundManager.instance.PlaySound ("reset");
-			}
-		}*/
-	}
+
+
 
 	public void GoToScene(string sceneName) {
 		SceneManager.LoadScene (sceneName);

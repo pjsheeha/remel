@@ -44,6 +44,14 @@ public class SoundManager : PersistentSingleton<SoundManager> {
 
 	public AudioClip PopAudio;
 	private AudioSource popAudio;
+
+
+
+	public AudioClip OpenAudio;
+	private AudioSource openAudio;
+
+	public AudioClip EndAudio;
+	private AudioSource endAudio;
 	private Dictionary<string, AudioSource> sounds;
 
 	void Awake () {
@@ -108,6 +116,12 @@ public class SoundManager : PersistentSingleton<SoundManager> {
 		popAudio = gameObject.AddComponent<AudioSource> ();
 		popAudio.clip = PopAudio;
 		sounds ["pop"] = popAudio;
+		openAudio = gameObject.AddComponent<AudioSource> ();
+		openAudio.clip = OpenAudio;
+		sounds ["open"] = openAudio;
+		endAudio = gameObject.AddComponent<AudioSource> ();
+		endAudio.clip = EndAudio;
+		sounds ["end"] = endAudio;
 	}
 
 
