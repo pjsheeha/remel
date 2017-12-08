@@ -59,8 +59,8 @@ public class MenuUI : MonoBehaviour {
 	}
 
 	private void CheckSkipScene() {
-		if (anim.GetCurrentAnimatorStateInfo (0).IsName ("transition") && Input.GetKeyDown (KeyCode.Escape)) {
-			GameManager.Instance.GoToScene (GameManager.FIRST_LEVEL_SCENE_NAME);	
+		if (anim.GetCurrentAnimatorStateInfo (0).IsName ("transition") && (Input.GetKeyDown (KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button7))) {
+			GameManager.Instance.GoToScene (GameManager.FIRST_LEVEL_SCENE_NAME);
 		}
 	}
 }

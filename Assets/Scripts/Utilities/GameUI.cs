@@ -10,8 +10,17 @@ public class GameUI : MonoBehaviour {
 	CanvasGroup menuPanel;
 
 	protected void Update() {
-		if (Input.GetKeyDown (KeyCode.Escape) && SceneManager.GetActiveScene().name != "title") {
+		if ((Input.GetKeyDown (KeyCode.Escape)) && SceneManager.GetActiveScene().name != "title") {
 			menuPanel.gameObject.SetActive (!menuPanel.gameObject.activeSelf);
+		}
+
+		if (Input.GetKey (KeyCode.Joystick1Button0) &&
+			Input.GetKey (KeyCode.Joystick1Button1) &&
+			Input.GetKey (KeyCode.Joystick1Button2) &&
+			Input.GetKey (KeyCode.Joystick1Button3)) {
+
+			BackToMenu ();
+			
 		}
 	}
 

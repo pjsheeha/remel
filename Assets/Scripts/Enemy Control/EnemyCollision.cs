@@ -18,6 +18,10 @@ public class EnemyCollision : MonoBehaviour {
 
 	public bool DetectionCollision(Vector2 position) {
 
+		if (enemyManager == null) {
+			enemyManager = GetComponent<EnemyManager> ();
+		}
+
 		int enemyLayer = 1 << LayerMask.NameToLayer ("Enemy") | 1 << LayerMask.NameToLayer ("Gate");
 
 		enemyLayer = ~(enemyLayer);

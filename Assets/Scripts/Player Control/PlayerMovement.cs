@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour {
 			return;
 		}
 
-		if ((Input.GetKeyDown (KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && remainingJumps > 0) {
+		if ((Input.GetKeyDown (KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Joystick1Button0)) && remainingJumps > 0) {
 			Vector2 vel = playerManager.rb.velocity;
 			vel.y = jumpHeight * remainingJumps-- / numJumps;
 
