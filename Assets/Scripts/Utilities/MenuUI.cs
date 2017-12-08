@@ -52,7 +52,9 @@ public class MenuUI : MonoBehaviour {
 		if (Input.anyKeyDown && playing == false) {
 			anim.SetTrigger ("transition");
 			playing = true;
-			SoundManager.instance.PlaySound ("open");
+
+				SoundManager.instance.PlaySound ("open");
+
 		}
 	}
 
