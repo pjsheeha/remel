@@ -32,9 +32,10 @@ public class GameManager : PersistentSingleton<GameManager> {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.R)) {
+		if (Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.Joystick1Button6)) {
 
-			playerMovement.ResetPosition ();
+			PlayerManager.Instance.GetComponent<PlayerMovement> ().ResetPosition ();
+			PlayerManager.Instance.ResumeMovement ();
 			SoundManager.instance.PlaySound ("reset");
 		}
 	}

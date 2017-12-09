@@ -36,7 +36,7 @@ public class EnemyCollision : MonoBehaviour {
 			return false;
 		}
 
-		if (enemyManager.Target != null) {
+		if (enemyManager.Target != null && enemyManager.Target != PlayerManager.Instance.transform) {
 			Destroy (enemyManager.Target.gameObject);
 		}
 
